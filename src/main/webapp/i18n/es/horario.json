@@ -1,0 +1,26 @@
+{
+    "escuelitaApp": {
+        "horario" : {
+            "home": {
+                "title": "Horarios",
+                "createLabel": "Crear nuevo Horario",
+                "createOrEditLabel": "Crear o editar Horario",
+                "search": "Search for Horario"
+            },
+            "created": "Un nuevo Horario ha sido creado con el identificador {{ param }}",
+            "updated": "Un Horario ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Horario ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Horario {{ id }}?"
+            },
+            "detail": {
+                "title": "Horario"
+            },
+            "nombre": "Nombre",
+            "horaInicio": "Hora Inicio",
+            "horaFin": "Hora Fin",
+            "dia": "Dia",
+            "categoria": "Categoria"
+        }
+    }
+}

@@ -1,0 +1,27 @@
+{
+    "escuelitaApp": {
+        "entrenador" : {
+            "home": {
+                "title": "Entrenadors",
+                "createLabel": "Crear nuevo Entrenador",
+                "createOrEditLabel": "Crear o editar Entrenador",
+                "search": "Search for Entrenador"
+            },
+            "created": "Un nuevo Entrenador ha sido creado con el identificador {{ param }}",
+            "updated": "Un Entrenador ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Entrenador ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Entrenador {{ id }}?"
+            },
+            "detail": {
+                "title": "Entrenador"
+            },
+            "nombre": "Nombre",
+            "apellido": "Apellido",
+            "fechaNacimiento": "Fecha Nacimiento",
+            "telefono": "Telefono",
+            "correo": "Correo",
+            "entrenamiento": "Entrenamiento"
+        }
+    }
+}

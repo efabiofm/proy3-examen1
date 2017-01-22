@@ -1,0 +1,64 @@
+<div>
+    <h2 data-translate="escuelitaApp.entrenador.home.title">Entrenadors</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="entrenador.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span  data-translate="escuelitaApp.entrenador.home.createLabel">
+                        Create new Entrenador
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span data-translate="global.field.id">ID</span></th>
+                    <th><span data-translate="escuelitaApp.entrenador.nombre">Nombre</span></th>
+                    <th><span data-translate="escuelitaApp.entrenador.apellido">Apellido</span></th>
+                    <th><span data-translate="escuelitaApp.entrenador.fechaNacimiento">Fecha Nacimiento</span></th>
+                    <th><span data-translate="escuelitaApp.entrenador.telefono">Telefono</span></th>
+                    <th><span data-translate="escuelitaApp.entrenador.correo">Correo</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="entrenador in vm.entrenadors track by entrenador.id">
+                    <td><a ui-sref="entrenador-detail({id:entrenador.id})">{{entrenador.id}}</a></td>
+                    <td>{{entrenador.nombre}}</td>
+                    <td>{{entrenador.apellido}}</td>
+                        <td>{{entrenador.fechaNacimiento | date:'mediumDate'}}</td>
+                    <td>{{entrenador.telefono}}</td>
+                    <td>{{entrenador.correo}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="entrenador-detail({id:entrenador.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm" data-translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="entrenador.edit({id:entrenador.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="entrenador.delete({id:entrenador.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm" data-translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

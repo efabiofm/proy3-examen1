@@ -1,0 +1,55 @@
+
+<div>
+    <h2><span data-translate="escuelitaApp.jugador.detail.title">Jugador</span> {{vm.jugador.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="escuelitaApp.jugador.nombre">Nombre</span></dt>
+        <dd>
+            <span>{{vm.jugador.nombre}}</span>
+        </dd>
+        <dt><span data-translate="escuelitaApp.jugador.apellido">Apellido</span></dt>
+        <dd>
+            <span>{{vm.jugador.apellido}}</span>
+        </dd>
+        <dt><span data-translate="escuelitaApp.jugador.fechaNacimiento">Fecha Nacimiento</span></dt>
+        <dd>
+            <span>{{vm.jugador.fechaNacimiento | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span data-translate="escuelitaApp.jugador.nombreEncargado">Nombre Encargado</span></dt>
+        <dd>
+            <span>{{vm.jugador.nombreEncargado}}</span>
+        </dd>
+        <dt><span data-translate="escuelitaApp.jugador.apellidoEncargado">Apellido Encargado</span></dt>
+        <dd>
+            <span>{{vm.jugador.apellidoEncargado}}</span>
+        </dd>
+        <dt><span data-translate="escuelitaApp.jugador.telefonoEncargado">Telefono Encargado</span></dt>
+        <dd>
+            <span>{{vm.jugador.telefonoEncargado}}</span>
+        </dd>
+        <dt><span data-translate="escuelitaApp.jugador.correoEncargado">Correo Encargado</span></dt>
+        <dd>
+            <span>{{vm.jugador.correoEncargado}}</span>
+        </dd>
+        <dt><span data-translate="escuelitaApp.jugador.categoria">Categoria</span></dt>
+        <dd>
+            <a ui-sref="categoria-detail({id:vm.jugador.categoria.id})">{{vm.jugador.categoria.id}}</a>
+        </dd>
+        <dt><span data-translate="escuelitaApp.jugador.posicion">Posicion</span></dt>
+        <dd>
+            <a ui-sref="posicion-detail({id:vm.jugador.posicion.id})">{{vm.jugador.posicion.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="jugador-detail.edit({id:vm.jugador.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

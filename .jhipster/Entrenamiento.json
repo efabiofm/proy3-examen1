@@ -1,0 +1,37 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "horario",
+            "otherEntityName": "horario",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "entrenamiento"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "entrenador",
+            "otherEntityName": "entrenador",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "nombre",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "descripcion",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170122184022",
+    "entityTableName": "entrenamiento",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}
