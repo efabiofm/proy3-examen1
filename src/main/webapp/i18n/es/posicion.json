@@ -1,0 +1,23 @@
+{
+    "escuelitaApp": {
+        "posicion" : {
+            "home": {
+                "title": "Posicions",
+                "createLabel": "Crear nuevo Posicion",
+                "createOrEditLabel": "Crear o editar Posicion",
+                "search": "Search for Posicion"
+            },
+            "created": "Un nuevo Posicion ha sido creado con el identificador {{ param }}",
+            "updated": "Un Posicion ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Posicion ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Posicion {{ id }}?"
+            },
+            "detail": {
+                "title": "Posicion"
+            },
+            "nombre": "Nombre",
+            "descripcion": "Descripcion"
+        }
+    }
+}

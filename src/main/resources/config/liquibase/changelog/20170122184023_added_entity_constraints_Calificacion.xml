@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity Calificacion.
+    -->
+    <changeSet id="20170122184023-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="jugador_id"
+                                 baseTableName="calificacion"
+                                 constraintName="fk_calificacion_jugador_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jugador"/>
+
+        <addForeignKeyConstraint baseColumnNames="entrenamiento_id"
+                                 baseTableName="calificacion"
+                                 constraintName="fk_calificacion_entrenamiento_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="entrenamiento"/>
+
+    </changeSet>
+</databaseChangeLog>

@@ -5,6 +5,17 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
     <include file="classpath:config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170122184017_added_entity_Jugador.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170122184018_added_entity_Entrenador.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170122184019_added_entity_Posicion.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170122184020_added_entity_Categoria.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170122184021_added_entity_Horario.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170122184022_added_entity_Entrenamiento.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170122184023_added_entity_Calificacion.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="classpath:config/liquibase/changelog/20170122184017_added_entity_constraints_Jugador.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170122184021_added_entity_constraints_Horario.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170122184022_added_entity_constraints_Entrenamiento.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170122184023_added_entity_constraints_Calificacion.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>
