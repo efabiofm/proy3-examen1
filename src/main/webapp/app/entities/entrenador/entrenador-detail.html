@@ -1,0 +1,39 @@
+
+<div>
+    <h2><span data-translate="escuelitaApp.entrenador.detail.title">Entrenador</span> {{vm.entrenador.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="escuelitaApp.entrenador.nombre">Nombre</span></dt>
+        <dd>
+            <span>{{vm.entrenador.nombre}}</span>
+        </dd>
+        <dt><span data-translate="escuelitaApp.entrenador.apellido">Apellido</span></dt>
+        <dd>
+            <span>{{vm.entrenador.apellido}}</span>
+        </dd>
+        <dt><span data-translate="escuelitaApp.entrenador.fechaNacimiento">Fecha Nacimiento</span></dt>
+        <dd>
+            <span>{{vm.entrenador.fechaNacimiento | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span data-translate="escuelitaApp.entrenador.telefono">Telefono</span></dt>
+        <dd>
+            <span>{{vm.entrenador.telefono}}</span>
+        </dd>
+        <dt><span data-translate="escuelitaApp.entrenador.correo">Correo</span></dt>
+        <dd>
+            <span>{{vm.entrenador.correo}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="entrenador-detail.edit({id:vm.entrenador.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>
