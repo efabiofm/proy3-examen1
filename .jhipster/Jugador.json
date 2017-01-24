@@ -1,0 +1,58 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "categoria",
+            "otherEntityName": "categoria",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "posicion",
+            "otherEntityName": "posicion",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "nombre",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "apellido",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "fechaNacimiento",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "nombreEncargado",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "apellidoEncargado",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "telefonoEncargado",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "correoEncargado",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170124070218",
+    "entityTableName": "jugador",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceClass"
+}

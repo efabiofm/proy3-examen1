@@ -1,0 +1,25 @@
+{
+    "escuelitaApp": {
+        "entrenamiento" : {
+            "home": {
+                "title": "Entrenamientos",
+                "createLabel": "Crear nuevo Entrenamiento",
+                "createOrEditLabel": "Crear o editar Entrenamiento",
+                "search": "Search for Entrenamiento"
+            },
+            "created": "Un nuevo Entrenamiento ha sido creado con el identificador {{ param }}",
+            "updated": "Un Entrenamiento ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Entrenamiento ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Entrenamiento {{ id }}?"
+            },
+            "detail": {
+                "title": "Entrenamiento"
+            },
+            "nombre": "Nombre",
+            "descripcion": "Descripcion",
+            "horario": "Horario",
+            "entrenador": "Entrenador"
+        }
+    }
+}
