@@ -1,0 +1,22 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "nombre",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "descripcion",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170124070220",
+    "entityTableName": "posicion",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceClass"
+}

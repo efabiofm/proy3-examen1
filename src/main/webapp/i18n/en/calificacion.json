@@ -1,0 +1,25 @@
+{
+    "escuelitaApp": {
+        "calificacion" : {
+            "home": {
+                "title": "Calificacions",
+                "createLabel": "Create a new Calificacion",
+                "createOrEditLabel": "Create or edit a Calificacion",
+                "search": "Search for Calificacion"
+            },
+            "created": "A new Calificacion is created with identifier {{ param }}",
+            "updated": "A Calificacion is updated with identifier {{ param }}",
+            "deleted": "A Calificacion is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Calificacion {{ id }}?"
+            },
+            "detail": {
+                "title": "Calificacion"
+            },
+            "descripcion": "Descripcion",
+            "nota": "Nota",
+            "jugador": "Jugador",
+            "entrenamiento": "Entrenamiento"
+        }
+    }
+}

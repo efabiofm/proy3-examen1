@@ -1,0 +1,96 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myJugadorLabel" data-translate="escuelitaApp.jugador.home.createOrEditLabel">Create or edit a Jugador</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.jugador.id">
+            <label for="id" data-translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.jugador.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="escuelitaApp.jugador.nombre" for="field_nombre">Nombre</label>
+            <input type="text" class="form-control" name="nombre" id="field_nombre"
+                    ng-model="vm.jugador.nombre"
+                    required />
+            <div ng-show="editForm.nombre.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.nombre.$error.required" data-translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="escuelitaApp.jugador.apellido" for="field_apellido">Apellido</label>
+            <input type="text" class="form-control" name="apellido" id="field_apellido"
+                    ng-model="vm.jugador.apellido"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="escuelitaApp.jugador.fechaNacimiento" for="field_fechaNacimiento">Fecha Nacimiento</label>
+                <div class="input-group">
+                    <input id="field_fechaNacimiento" type="text" class="form-control" name="fechaNacimiento" uib-datepicker-popup="{{dateformat}}" ng-model="vm.jugador.fechaNacimiento" is-open="vm.datePickerOpenStatus.fechaNacimiento"
+                    required/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('fechaNacimiento')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+            <div ng-show="editForm.fechaNacimiento.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.fechaNacimiento.$error.required" data-translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="escuelitaApp.jugador.nombreEncargado" for="field_nombreEncargado">Nombre Encargado</label>
+            <input type="text" class="form-control" name="nombreEncargado" id="field_nombreEncargado"
+                    ng-model="vm.jugador.nombreEncargado"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="escuelitaApp.jugador.apellidoEncargado" for="field_apellidoEncargado">Apellido Encargado</label>
+            <input type="text" class="form-control" name="apellidoEncargado" id="field_apellidoEncargado"
+                    ng-model="vm.jugador.apellidoEncargado"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="escuelitaApp.jugador.telefonoEncargado" for="field_telefonoEncargado">Telefono Encargado</label>
+            <input type="text" class="form-control" name="telefonoEncargado" id="field_telefonoEncargado"
+                    ng-model="vm.jugador.telefonoEncargado"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="escuelitaApp.jugador.correoEncargado" for="field_correoEncargado">Correo Encargado</label>
+            <input type="text" class="form-control" name="correoEncargado" id="field_correoEncargado"
+                    ng-model="vm.jugador.correoEncargado"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label data-translate="escuelitaApp.jugador.categoria" for="field_categoria">Categoria</label>
+            <select class="form-control" id="field_categoria" name="categoria" ng-model="vm.jugador.categoriaId" ng-options="categoria.id as categoria.id for categoria in vm.categorias"            >
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label data-translate="escuelitaApp.jugador.posicion" for="field_posicion">Posicion</label>
+            <select class="form-control" id="field_posicion" name="posicion" ng-model="vm.jugador.posicionId" ng-options="posicion.id as posicion.id for posicion in vm.posicions"            >
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span data-translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span data-translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

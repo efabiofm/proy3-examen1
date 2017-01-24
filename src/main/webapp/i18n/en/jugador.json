@@ -1,0 +1,30 @@
+{
+    "escuelitaApp": {
+        "jugador" : {
+            "home": {
+                "title": "Jugadors",
+                "createLabel": "Create a new Jugador",
+                "createOrEditLabel": "Create or edit a Jugador",
+                "search": "Search for Jugador"
+            },
+            "created": "A new Jugador is created with identifier {{ param }}",
+            "updated": "A Jugador is updated with identifier {{ param }}",
+            "deleted": "A Jugador is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Jugador {{ id }}?"
+            },
+            "detail": {
+                "title": "Jugador"
+            },
+            "nombre": "Nombre",
+            "apellido": "Apellido",
+            "fechaNacimiento": "Fecha Nacimiento",
+            "nombreEncargado": "Nombre Encargado",
+            "apellidoEncargado": "Apellido Encargado",
+            "telefonoEncargado": "Telefono Encargado",
+            "correoEncargado": "Correo Encargado",
+            "categoria": "Categoria",
+            "posicion": "Posicion"
+        }
+    }
+}

@@ -1,0 +1,39 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "jugador",
+            "otherEntityName": "jugador",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "calificacion"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "entrenamiento",
+            "otherEntityName": "entrenamiento",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "calificacion"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "descripcion",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "nota",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20170124070224",
+    "entityTableName": "calificacion",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceClass"
+}

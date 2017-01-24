@@ -1,0 +1,35 @@
+
+<div>
+    <h2><span data-translate="escuelitaApp.calificacion.detail.title">Calificacion</span> {{vm.calificacion.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="escuelitaApp.calificacion.descripcion">Descripcion</span></dt>
+        <dd>
+            <span>{{vm.calificacion.descripcion}}</span>
+        </dd>
+        <dt><span data-translate="escuelitaApp.calificacion.nota">Nota</span></dt>
+        <dd>
+            <span>{{vm.calificacion.nota}}</span>
+        </dd>
+        <dt><span data-translate="escuelitaApp.calificacion.jugador">Jugador</span></dt>
+        <dd>
+            <a ui-sref="jugador-detail({id:vm.calificacion.jugadorId})">{{vm.calificacion.jugadorId}}</a>
+        </dd>
+        <dt><span data-translate="escuelitaApp.calificacion.entrenamiento">Entrenamiento</span></dt>
+        <dd>
+            <a ui-sref="entrenamiento-detail({id:vm.calificacion.entrenamientoId})">{{vm.calificacion.entrenamientoId}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="calificacion-detail.edit({id:vm.calificacion.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>
