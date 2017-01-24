@@ -1,10 +1,9 @@
 package com.cenfotec.escuelita.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.cenfotec.escuelita.domain.Horario;
-
-import com.cenfotec.escuelita.repository.HorarioRepository;
+import com.cenfotec.escuelita.service.HorarioService;
 import com.cenfotec.escuelita.web.rest.util.HeaderUtil;
+import com.cenfotec.escuelita.service.dto.HorarioDTO;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,8 +16,10 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Horario.
@@ -28,25 +29,25 @@ import java.util.Optional;
 public class HorarioResource {
 
     private final Logger log = LoggerFactory.getLogger(HorarioResource.class);
-        
+
     @Inject
-    private HorarioRepository horarioRepository;
+    private HorarioService horarioService;
 
     /**
      * POST  /horarios : Create a new horario.
      *
-     * @param horario the horario to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new horario, or with status 400 (Bad Request) if the horario has already an ID
+     * @param horarioDTO the horarioDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new horarioDTO, or with status 400 (Bad Request) if the horario has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/horarios")
     @Timed
-    public ResponseEntity<Horario> createHorario(@Valid @RequestBody Horario horario) throws URISyntaxException {
-        log.debug("REST request to save Horario : {}", horario);
-        if (horario.getId() != null) {
+    public ResponseEntity<HorarioDTO> createHorario(@Valid @RequestBody HorarioDTO horarioDTO) throws URISyntaxException {
+        log.debug("REST request to save Horario : {}", horarioDTO);
+        if (horarioDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("horario", "idexists", "A new horario cannot already have an ID")).body(null);
         }
-        Horario result = horarioRepository.save(horario);
+        HorarioDTO result = horarioService.save(horarioDTO);
         return ResponseEntity.created(new URI("/api/horarios/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("horario", result.getId().toString()))
             .body(result);
@@ -55,22 +56,22 @@ public class HorarioResource {
     /**
      * PUT  /horarios : Updates an existing horario.
      *
-     * @param horario the horario to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated horario,
-     * or with status 400 (Bad Request) if the horario is not valid,
-     * or with status 500 (Internal Server Error) if the horario couldnt be updated
+     * @param horarioDTO the horarioDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated horarioDTO,
+     * or with status 400 (Bad Request) if the horarioDTO is not valid,
+     * or with status 500 (Internal Server Error) if the horarioDTO couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/horarios")
     @Timed
-    public ResponseEntity<Horario> updateHorario(@Valid @RequestBody Horario horario) throws URISyntaxException {
-        log.debug("REST request to update Horario : {}", horario);
-        if (horario.getId() == null) {
-            return createHorario(horario);
+    public ResponseEntity<HorarioDTO> updateHorario(@Valid @RequestBody HorarioDTO horarioDTO) throws URISyntaxException {
+        log.debug("REST request to update Horario : {}", horarioDTO);
+        if (horarioDTO.getId() == null) {
+            return createHorario(horarioDTO);
         }
-        Horario result = horarioRepository.save(horario);
+        HorarioDTO result = horarioService.save(horarioDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert("horario", horario.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert("horario", horarioDTO.getId().toString()))
             .body(result);
     }
 
@@ -81,24 +82,23 @@ public class HorarioResource {
      */
     @GetMapping("/horarios")
     @Timed
-    public List<Horario> getAllHorarios() {
+    public List<HorarioDTO> getAllHorarios() {
         log.debug("REST request to get all Horarios");
-        List<Horario> horarios = horarioRepository.findAll();
-        return horarios;
+        return horarioService.findAll();
     }
 
     /**
      * GET  /horarios/:id : get the "id" horario.
      *
-     * @param id the id of the horario to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the horario, or with status 404 (Not Found)
+     * @param id the id of the horarioDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the horarioDTO, or with status 404 (Not Found)
      */
     @GetMapping("/horarios/{id}")
     @Timed
-    public ResponseEntity<Horario> getHorario(@PathVariable Long id) {
+    public ResponseEntity<HorarioDTO> getHorario(@PathVariable Long id) {
         log.debug("REST request to get Horario : {}", id);
-        Horario horario = horarioRepository.findOne(id);
-        return Optional.ofNullable(horario)
+        HorarioDTO horarioDTO = horarioService.findOne(id);
+        return Optional.ofNullable(horarioDTO)
             .map(result -> new ResponseEntity<>(
                 result,
                 HttpStatus.OK))
@@ -108,14 +108,14 @@ public class HorarioResource {
     /**
      * DELETE  /horarios/:id : delete the "id" horario.
      *
-     * @param id the id of the horario to delete
+     * @param id the id of the horarioDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/horarios/{id}")
     @Timed
     public ResponseEntity<Void> deleteHorario(@PathVariable Long id) {
         log.debug("REST request to delete Horario : {}", id);
-        horarioRepository.delete(id);
+        horarioService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("horario", id.toString())).build();
     }
 

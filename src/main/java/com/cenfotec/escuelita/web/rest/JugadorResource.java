@@ -1,10 +1,9 @@
 package com.cenfotec.escuelita.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.cenfotec.escuelita.domain.Jugador;
-
-import com.cenfotec.escuelita.repository.JugadorRepository;
+import com.cenfotec.escuelita.service.JugadorService;
 import com.cenfotec.escuelita.web.rest.util.HeaderUtil;
+import com.cenfotec.escuelita.service.dto.JugadorDTO;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,8 +16,10 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Jugador.
@@ -28,25 +29,25 @@ import java.util.Optional;
 public class JugadorResource {
 
     private final Logger log = LoggerFactory.getLogger(JugadorResource.class);
-        
+
     @Inject
-    private JugadorRepository jugadorRepository;
+    private JugadorService jugadorService;
 
     /**
      * POST  /jugadors : Create a new jugador.
      *
-     * @param jugador the jugador to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new jugador, or with status 400 (Bad Request) if the jugador has already an ID
+     * @param jugadorDTO the jugadorDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new jugadorDTO, or with status 400 (Bad Request) if the jugador has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/jugadors")
     @Timed
-    public ResponseEntity<Jugador> createJugador(@Valid @RequestBody Jugador jugador) throws URISyntaxException {
-        log.debug("REST request to save Jugador : {}", jugador);
-        if (jugador.getId() != null) {
+    public ResponseEntity<JugadorDTO> createJugador(@Valid @RequestBody JugadorDTO jugadorDTO) throws URISyntaxException {
+        log.debug("REST request to save Jugador : {}", jugadorDTO);
+        if (jugadorDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("jugador", "idexists", "A new jugador cannot already have an ID")).body(null);
         }
-        Jugador result = jugadorRepository.save(jugador);
+        JugadorDTO result = jugadorService.save(jugadorDTO);
         return ResponseEntity.created(new URI("/api/jugadors/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("jugador", result.getId().toString()))
             .body(result);
@@ -55,22 +56,22 @@ public class JugadorResource {
     /**
      * PUT  /jugadors : Updates an existing jugador.
      *
-     * @param jugador the jugador to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated jugador,
-     * or with status 400 (Bad Request) if the jugador is not valid,
-     * or with status 500 (Internal Server Error) if the jugador couldnt be updated
+     * @param jugadorDTO the jugadorDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated jugadorDTO,
+     * or with status 400 (Bad Request) if the jugadorDTO is not valid,
+     * or with status 500 (Internal Server Error) if the jugadorDTO couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/jugadors")
     @Timed
-    public ResponseEntity<Jugador> updateJugador(@Valid @RequestBody Jugador jugador) throws URISyntaxException {
-        log.debug("REST request to update Jugador : {}", jugador);
-        if (jugador.getId() == null) {
-            return createJugador(jugador);
+    public ResponseEntity<JugadorDTO> updateJugador(@Valid @RequestBody JugadorDTO jugadorDTO) throws URISyntaxException {
+        log.debug("REST request to update Jugador : {}", jugadorDTO);
+        if (jugadorDTO.getId() == null) {
+            return createJugador(jugadorDTO);
         }
-        Jugador result = jugadorRepository.save(jugador);
+        JugadorDTO result = jugadorService.save(jugadorDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert("jugador", jugador.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert("jugador", jugadorDTO.getId().toString()))
             .body(result);
     }
 
@@ -81,24 +82,23 @@ public class JugadorResource {
      */
     @GetMapping("/jugadors")
     @Timed
-    public List<Jugador> getAllJugadors() {
+    public List<JugadorDTO> getAllJugadors() {
         log.debug("REST request to get all Jugadors");
-        List<Jugador> jugadors = jugadorRepository.findAll();
-        return jugadors;
+        return jugadorService.findAll();
     }
 
     /**
      * GET  /jugadors/:id : get the "id" jugador.
      *
-     * @param id the id of the jugador to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the jugador, or with status 404 (Not Found)
+     * @param id the id of the jugadorDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the jugadorDTO, or with status 404 (Not Found)
      */
     @GetMapping("/jugadors/{id}")
     @Timed
-    public ResponseEntity<Jugador> getJugador(@PathVariable Long id) {
+    public ResponseEntity<JugadorDTO> getJugador(@PathVariable Long id) {
         log.debug("REST request to get Jugador : {}", id);
-        Jugador jugador = jugadorRepository.findOne(id);
-        return Optional.ofNullable(jugador)
+        JugadorDTO jugadorDTO = jugadorService.findOne(id);
+        return Optional.ofNullable(jugadorDTO)
             .map(result -> new ResponseEntity<>(
                 result,
                 HttpStatus.OK))
@@ -108,14 +108,14 @@ public class JugadorResource {
     /**
      * DELETE  /jugadors/:id : delete the "id" jugador.
      *
-     * @param id the id of the jugador to delete
+     * @param id the id of the jugadorDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/jugadors/{id}")
     @Timed
     public ResponseEntity<Void> deleteJugador(@PathVariable Long id) {
         log.debug("REST request to delete Jugador : {}", id);
-        jugadorRepository.delete(id);
+        jugadorService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("jugador", id.toString())).build();
     }
 

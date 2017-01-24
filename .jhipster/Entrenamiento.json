@@ -29,9 +29,9 @@
             "fieldType": "String"
         }
     ],
-    "changelogDate": "20170122184022",
+    "changelogDate": "20170124070223",
     "entityTableName": "entrenamiento",
-    "dto": "no",
+    "dto": "mapstruct",
     "pagination": "no",
-    "service": "no"
+    "service": "serviceClass"
 }

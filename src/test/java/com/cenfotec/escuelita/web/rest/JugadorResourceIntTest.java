@@ -4,6 +4,9 @@ import com.cenfotec.escuelita.EscuelitaApp;
 
 import com.cenfotec.escuelita.domain.Jugador;
 import com.cenfotec.escuelita.repository.JugadorRepository;
+import com.cenfotec.escuelita.service.JugadorService;
+import com.cenfotec.escuelita.service.dto.JugadorDTO;
+import com.cenfotec.escuelita.service.mapper.JugadorMapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -64,6 +67,12 @@ public class JugadorResourceIntTest {
     private JugadorRepository jugadorRepository;
 
     @Inject
+    private JugadorMapper jugadorMapper;
+
+    @Inject
+    private JugadorService jugadorService;
+
+    @Inject
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Inject
@@ -80,7 +89,7 @@ public class JugadorResourceIntTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         JugadorResource jugadorResource = new JugadorResource();
-        ReflectionTestUtils.setField(jugadorResource, "jugadorRepository", jugadorRepository);
+        ReflectionTestUtils.setField(jugadorResource, "jugadorService", jugadorService);
         this.restJugadorMockMvc = MockMvcBuilders.standaloneSetup(jugadorResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -115,10 +124,11 @@ public class JugadorResourceIntTest {
         int databaseSizeBeforeCreate = jugadorRepository.findAll().size();
 
         // Create the Jugador
+        JugadorDTO jugadorDTO = jugadorMapper.jugadorToJugadorDTO(jugador);
 
         restJugadorMockMvc.perform(post("/api/jugadors")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(jugador)))
+            .content(TestUtil.convertObjectToJsonBytes(jugadorDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Jugador in the database
@@ -142,11 +152,12 @@ public class JugadorResourceIntTest {
         // Create the Jugador with an existing ID
         Jugador existingJugador = new Jugador();
         existingJugador.setId(1L);
+        JugadorDTO existingJugadorDTO = jugadorMapper.jugadorToJugadorDTO(existingJugador);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restJugadorMockMvc.perform(post("/api/jugadors")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(existingJugador)))
+            .content(TestUtil.convertObjectToJsonBytes(existingJugadorDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
@@ -162,10 +173,11 @@ public class JugadorResourceIntTest {
         jugador.setNombre(null);
 
         // Create the Jugador, which fails.
+        JugadorDTO jugadorDTO = jugadorMapper.jugadorToJugadorDTO(jugador);
 
         restJugadorMockMvc.perform(post("/api/jugadors")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(jugador)))
+            .content(TestUtil.convertObjectToJsonBytes(jugadorDTO)))
             .andExpect(status().isBadRequest());
 
         List<Jugador> jugadorList = jugadorRepository.findAll();
@@ -180,10 +192,11 @@ public class JugadorResourceIntTest {
         jugador.setFechaNacimiento(null);
 
         // Create the Jugador, which fails.
+        JugadorDTO jugadorDTO = jugadorMapper.jugadorToJugadorDTO(jugador);
 
         restJugadorMockMvc.perform(post("/api/jugadors")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(jugador)))
+            .content(TestUtil.convertObjectToJsonBytes(jugadorDTO)))
             .andExpect(status().isBadRequest());
 
         List<Jugador> jugadorList = jugadorRepository.findAll();
@@ -255,10 +268,11 @@ public class JugadorResourceIntTest {
                 .apellidoEncargado(UPDATED_APELLIDO_ENCARGADO)
                 .telefonoEncargado(UPDATED_TELEFONO_ENCARGADO)
                 .correoEncargado(UPDATED_CORREO_ENCARGADO);
+        JugadorDTO jugadorDTO = jugadorMapper.jugadorToJugadorDTO(updatedJugador);
 
         restJugadorMockMvc.perform(put("/api/jugadors")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedJugador)))
+            .content(TestUtil.convertObjectToJsonBytes(jugadorDTO)))
             .andExpect(status().isOk());
 
         // Validate the Jugador in the database
@@ -280,11 +294,12 @@ public class JugadorResourceIntTest {
         int databaseSizeBeforeUpdate = jugadorRepository.findAll().size();
 
         // Create the Jugador
+        JugadorDTO jugadorDTO = jugadorMapper.jugadorToJugadorDTO(jugador);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restJugadorMockMvc.perform(put("/api/jugadors")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(jugador)))
+            .content(TestUtil.convertObjectToJsonBytes(jugadorDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Jugador in the database

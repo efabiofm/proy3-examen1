@@ -34,13 +34,13 @@
 
         <div class="form-group">
             <label data-translate="escuelitaApp.entrenamiento.horario" for="field_horario">Horario</label>
-            <select class="form-control" id="field_horario" name="horario" ng-model="vm.entrenamiento.horario" ng-options="horario as horario.id for horario in vm.horarios | orderBy:'id' track by horario.id">
+            <select class="form-control" id="field_horario" name="horario" ng-model="vm.entrenamiento.horarioId" ng-options="horario.id as horario.id for horario in vm.horarios | orderBy:'id'">
                 <option value=""></option>
             </select>
         </div>
         <div class="form-group">
             <label data-translate="escuelitaApp.entrenamiento.entrenador" for="field_entrenador">Entrenador</label>
-            <select class="form-control" id="field_entrenador" name="entrenador" ng-model="vm.entrenamiento.entrenador" ng-options="entrenador as entrenador.id for entrenador in vm.entrenadors track by entrenador.id">
+            <select class="form-control" id="field_entrenador" name="entrenador" ng-model="vm.entrenamiento.entrenadorId" ng-options="entrenador.id as entrenador.id for entrenador in vm.entrenadors"            >
                 <option value=""></option>
             </select>
         </div>

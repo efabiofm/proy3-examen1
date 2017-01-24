@@ -31,9 +31,9 @@
             ]
         }
     ],
-    "changelogDate": "20170122184023",
+    "changelogDate": "20170124070224",
     "entityTableName": "calificacion",
-    "dto": "no",
+    "dto": "mapstruct",
     "pagination": "no",
-    "service": "no"
+    "service": "serviceClass"
 }

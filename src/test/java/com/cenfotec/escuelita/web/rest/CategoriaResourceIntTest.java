@@ -4,6 +4,9 @@ import com.cenfotec.escuelita.EscuelitaApp;
 
 import com.cenfotec.escuelita.domain.Categoria;
 import com.cenfotec.escuelita.repository.CategoriaRepository;
+import com.cenfotec.escuelita.service.CategoriaService;
+import com.cenfotec.escuelita.service.dto.CategoriaDTO;
+import com.cenfotec.escuelita.service.mapper.CategoriaMapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -50,6 +53,12 @@ public class CategoriaResourceIntTest {
     private CategoriaRepository categoriaRepository;
 
     @Inject
+    private CategoriaMapper categoriaMapper;
+
+    @Inject
+    private CategoriaService categoriaService;
+
+    @Inject
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Inject
@@ -66,7 +75,7 @@ public class CategoriaResourceIntTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         CategoriaResource categoriaResource = new CategoriaResource();
-        ReflectionTestUtils.setField(categoriaResource, "categoriaRepository", categoriaRepository);
+        ReflectionTestUtils.setField(categoriaResource, "categoriaService", categoriaService);
         this.restCategoriaMockMvc = MockMvcBuilders.standaloneSetup(categoriaResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -97,10 +106,11 @@ public class CategoriaResourceIntTest {
         int databaseSizeBeforeCreate = categoriaRepository.findAll().size();
 
         // Create the Categoria
+        CategoriaDTO categoriaDTO = categoriaMapper.categoriaToCategoriaDTO(categoria);
 
         restCategoriaMockMvc.perform(post("/api/categorias")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(categoria)))
+            .content(TestUtil.convertObjectToJsonBytes(categoriaDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Categoria in the database
@@ -120,11 +130,12 @@ public class CategoriaResourceIntTest {
         // Create the Categoria with an existing ID
         Categoria existingCategoria = new Categoria();
         existingCategoria.setId(1L);
+        CategoriaDTO existingCategoriaDTO = categoriaMapper.categoriaToCategoriaDTO(existingCategoria);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restCategoriaMockMvc.perform(post("/api/categorias")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(existingCategoria)))
+            .content(TestUtil.convertObjectToJsonBytes(existingCategoriaDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
@@ -140,10 +151,11 @@ public class CategoriaResourceIntTest {
         categoria.setNombre(null);
 
         // Create the Categoria, which fails.
+        CategoriaDTO categoriaDTO = categoriaMapper.categoriaToCategoriaDTO(categoria);
 
         restCategoriaMockMvc.perform(post("/api/categorias")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(categoria)))
+            .content(TestUtil.convertObjectToJsonBytes(categoriaDTO)))
             .andExpect(status().isBadRequest());
 
         List<Categoria> categoriaList = categoriaRepository.findAll();
@@ -203,10 +215,11 @@ public class CategoriaResourceIntTest {
                 .nombre(UPDATED_NOMBRE)
                 .edad(UPDATED_EDAD)
                 .descripcion(UPDATED_DESCRIPCION);
+        CategoriaDTO categoriaDTO = categoriaMapper.categoriaToCategoriaDTO(updatedCategoria);
 
         restCategoriaMockMvc.perform(put("/api/categorias")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedCategoria)))
+            .content(TestUtil.convertObjectToJsonBytes(categoriaDTO)))
             .andExpect(status().isOk());
 
         // Validate the Categoria in the database
@@ -224,11 +237,12 @@ public class CategoriaResourceIntTest {
         int databaseSizeBeforeUpdate = categoriaRepository.findAll().size();
 
         // Create the Categoria
+        CategoriaDTO categoriaDTO = categoriaMapper.categoriaToCategoriaDTO(categoria);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restCategoriaMockMvc.perform(put("/api/categorias")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(categoria)))
+            .content(TestUtil.convertObjectToJsonBytes(categoriaDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Categoria in the database

@@ -38,9 +38,9 @@
             ]
         }
     ],
-    "changelogDate": "20170122184021",
+    "changelogDate": "20170124070222",
     "entityTableName": "horario",
-    "dto": "no",
+    "dto": "mapstruct",
     "pagination": "no",
-    "service": "no"
+    "service": "serviceClass"
 }

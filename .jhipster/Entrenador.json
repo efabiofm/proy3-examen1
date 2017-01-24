@@ -36,9 +36,9 @@
             "fieldType": "String"
         }
     ],
-    "changelogDate": "20170122184018",
+    "changelogDate": "20170124070219",
     "entityTableName": "entrenador",
-    "dto": "no",
+    "dto": "mapstruct",
     "pagination": "no",
-    "service": "no"
+    "service": "serviceClass"
 }

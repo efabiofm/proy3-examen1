@@ -1,10 +1,9 @@
 package com.cenfotec.escuelita.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.cenfotec.escuelita.domain.Entrenador;
-
-import com.cenfotec.escuelita.repository.EntrenadorRepository;
+import com.cenfotec.escuelita.service.EntrenadorService;
 import com.cenfotec.escuelita.web.rest.util.HeaderUtil;
+import com.cenfotec.escuelita.service.dto.EntrenadorDTO;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,8 +16,10 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Entrenador.
@@ -28,25 +29,25 @@ import java.util.Optional;
 public class EntrenadorResource {
 
     private final Logger log = LoggerFactory.getLogger(EntrenadorResource.class);
-        
+
     @Inject
-    private EntrenadorRepository entrenadorRepository;
+    private EntrenadorService entrenadorService;
 
     /**
      * POST  /entrenadors : Create a new entrenador.
      *
-     * @param entrenador the entrenador to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new entrenador, or with status 400 (Bad Request) if the entrenador has already an ID
+     * @param entrenadorDTO the entrenadorDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new entrenadorDTO, or with status 400 (Bad Request) if the entrenador has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/entrenadors")
     @Timed
-    public ResponseEntity<Entrenador> createEntrenador(@Valid @RequestBody Entrenador entrenador) throws URISyntaxException {
-        log.debug("REST request to save Entrenador : {}", entrenador);
-        if (entrenador.getId() != null) {
+    public ResponseEntity<EntrenadorDTO> createEntrenador(@Valid @RequestBody EntrenadorDTO entrenadorDTO) throws URISyntaxException {
+        log.debug("REST request to save Entrenador : {}", entrenadorDTO);
+        if (entrenadorDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("entrenador", "idexists", "A new entrenador cannot already have an ID")).body(null);
         }
-        Entrenador result = entrenadorRepository.save(entrenador);
+        EntrenadorDTO result = entrenadorService.save(entrenadorDTO);
         return ResponseEntity.created(new URI("/api/entrenadors/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("entrenador", result.getId().toString()))
             .body(result);
@@ -55,22 +56,22 @@ public class EntrenadorResource {
     /**
      * PUT  /entrenadors : Updates an existing entrenador.
      *
-     * @param entrenador the entrenador to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated entrenador,
-     * or with status 400 (Bad Request) if the entrenador is not valid,
-     * or with status 500 (Internal Server Error) if the entrenador couldnt be updated
+     * @param entrenadorDTO the entrenadorDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated entrenadorDTO,
+     * or with status 400 (Bad Request) if the entrenadorDTO is not valid,
+     * or with status 500 (Internal Server Error) if the entrenadorDTO couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/entrenadors")
     @Timed
-    public ResponseEntity<Entrenador> updateEntrenador(@Valid @RequestBody Entrenador entrenador) throws URISyntaxException {
-        log.debug("REST request to update Entrenador : {}", entrenador);
-        if (entrenador.getId() == null) {
-            return createEntrenador(entrenador);
+    public ResponseEntity<EntrenadorDTO> updateEntrenador(@Valid @RequestBody EntrenadorDTO entrenadorDTO) throws URISyntaxException {
+        log.debug("REST request to update Entrenador : {}", entrenadorDTO);
+        if (entrenadorDTO.getId() == null) {
+            return createEntrenador(entrenadorDTO);
         }
-        Entrenador result = entrenadorRepository.save(entrenador);
+        EntrenadorDTO result = entrenadorService.save(entrenadorDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert("entrenador", entrenador.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert("entrenador", entrenadorDTO.getId().toString()))
             .body(result);
     }
 
@@ -81,24 +82,23 @@ public class EntrenadorResource {
      */
     @GetMapping("/entrenadors")
     @Timed
-    public List<Entrenador> getAllEntrenadors() {
+    public List<EntrenadorDTO> getAllEntrenadors() {
         log.debug("REST request to get all Entrenadors");
-        List<Entrenador> entrenadors = entrenadorRepository.findAll();
-        return entrenadors;
+        return entrenadorService.findAll();
     }
 
     /**
      * GET  /entrenadors/:id : get the "id" entrenador.
      *
-     * @param id the id of the entrenador to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the entrenador, or with status 404 (Not Found)
+     * @param id the id of the entrenadorDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the entrenadorDTO, or with status 404 (Not Found)
      */
     @GetMapping("/entrenadors/{id}")
     @Timed
-    public ResponseEntity<Entrenador> getEntrenador(@PathVariable Long id) {
+    public ResponseEntity<EntrenadorDTO> getEntrenador(@PathVariable Long id) {
         log.debug("REST request to get Entrenador : {}", id);
-        Entrenador entrenador = entrenadorRepository.findOne(id);
-        return Optional.ofNullable(entrenador)
+        EntrenadorDTO entrenadorDTO = entrenadorService.findOne(id);
+        return Optional.ofNullable(entrenadorDTO)
             .map(result -> new ResponseEntity<>(
                 result,
                 HttpStatus.OK))
@@ -108,14 +108,14 @@ public class EntrenadorResource {
     /**
      * DELETE  /entrenadors/:id : delete the "id" entrenador.
      *
-     * @param id the id of the entrenador to delete
+     * @param id the id of the entrenadorDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/entrenadors/{id}")
     @Timed
     public ResponseEntity<Void> deleteEntrenador(@PathVariable Long id) {
         log.debug("REST request to delete Entrenador : {}", id);
-        entrenadorRepository.delete(id);
+        entrenadorService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("entrenador", id.toString())).build();
     }
 

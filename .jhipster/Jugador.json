@@ -50,9 +50,9 @@
             "fieldType": "String"
         }
     ],
-    "changelogDate": "20170122184017",
+    "changelogDate": "20170124070218",
     "entityTableName": "jugador",
-    "dto": "no",
+    "dto": "mapstruct",
     "pagination": "no",
-    "service": "no"
+    "service": "serviceClass"
 }

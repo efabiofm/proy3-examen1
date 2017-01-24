@@ -4,6 +4,9 @@ import com.cenfotec.escuelita.EscuelitaApp;
 
 import com.cenfotec.escuelita.domain.Calificacion;
 import com.cenfotec.escuelita.repository.CalificacionRepository;
+import com.cenfotec.escuelita.service.CalificacionService;
+import com.cenfotec.escuelita.service.dto.CalificacionDTO;
+import com.cenfotec.escuelita.service.mapper.CalificacionMapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -47,6 +50,12 @@ public class CalificacionResourceIntTest {
     private CalificacionRepository calificacionRepository;
 
     @Inject
+    private CalificacionMapper calificacionMapper;
+
+    @Inject
+    private CalificacionService calificacionService;
+
+    @Inject
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Inject
@@ -63,7 +72,7 @@ public class CalificacionResourceIntTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         CalificacionResource calificacionResource = new CalificacionResource();
-        ReflectionTestUtils.setField(calificacionResource, "calificacionRepository", calificacionRepository);
+        ReflectionTestUtils.setField(calificacionResource, "calificacionService", calificacionService);
         this.restCalificacionMockMvc = MockMvcBuilders.standaloneSetup(calificacionResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -93,10 +102,11 @@ public class CalificacionResourceIntTest {
         int databaseSizeBeforeCreate = calificacionRepository.findAll().size();
 
         // Create the Calificacion
+        CalificacionDTO calificacionDTO = calificacionMapper.calificacionToCalificacionDTO(calificacion);
 
         restCalificacionMockMvc.perform(post("/api/calificacions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(calificacion)))
+            .content(TestUtil.convertObjectToJsonBytes(calificacionDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Calificacion in the database
@@ -115,11 +125,12 @@ public class CalificacionResourceIntTest {
         // Create the Calificacion with an existing ID
         Calificacion existingCalificacion = new Calificacion();
         existingCalificacion.setId(1L);
+        CalificacionDTO existingCalificacionDTO = calificacionMapper.calificacionToCalificacionDTO(existingCalificacion);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restCalificacionMockMvc.perform(post("/api/calificacions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(existingCalificacion)))
+            .content(TestUtil.convertObjectToJsonBytes(existingCalificacionDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
@@ -135,10 +146,11 @@ public class CalificacionResourceIntTest {
         calificacion.setNota(null);
 
         // Create the Calificacion, which fails.
+        CalificacionDTO calificacionDTO = calificacionMapper.calificacionToCalificacionDTO(calificacion);
 
         restCalificacionMockMvc.perform(post("/api/calificacions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(calificacion)))
+            .content(TestUtil.convertObjectToJsonBytes(calificacionDTO)))
             .andExpect(status().isBadRequest());
 
         List<Calificacion> calificacionList = calificacionRepository.findAll();
@@ -195,10 +207,11 @@ public class CalificacionResourceIntTest {
         updatedCalificacion
                 .descripcion(UPDATED_DESCRIPCION)
                 .nota(UPDATED_NOTA);
+        CalificacionDTO calificacionDTO = calificacionMapper.calificacionToCalificacionDTO(updatedCalificacion);
 
         restCalificacionMockMvc.perform(put("/api/calificacions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedCalificacion)))
+            .content(TestUtil.convertObjectToJsonBytes(calificacionDTO)))
             .andExpect(status().isOk());
 
         // Validate the Calificacion in the database
@@ -215,11 +228,12 @@ public class CalificacionResourceIntTest {
         int databaseSizeBeforeUpdate = calificacionRepository.findAll().size();
 
         // Create the Calificacion
+        CalificacionDTO calificacionDTO = calificacionMapper.calificacionToCalificacionDTO(calificacion);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restCalificacionMockMvc.perform(put("/api/calificacions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(calificacion)))
+            .content(TestUtil.convertObjectToJsonBytes(calificacionDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Calificacion in the database

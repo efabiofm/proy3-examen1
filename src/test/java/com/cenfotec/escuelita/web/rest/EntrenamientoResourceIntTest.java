@@ -4,6 +4,9 @@ import com.cenfotec.escuelita.EscuelitaApp;
 
 import com.cenfotec.escuelita.domain.Entrenamiento;
 import com.cenfotec.escuelita.repository.EntrenamientoRepository;
+import com.cenfotec.escuelita.service.EntrenamientoService;
+import com.cenfotec.escuelita.service.dto.EntrenamientoDTO;
+import com.cenfotec.escuelita.service.mapper.EntrenamientoMapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -47,6 +50,12 @@ public class EntrenamientoResourceIntTest {
     private EntrenamientoRepository entrenamientoRepository;
 
     @Inject
+    private EntrenamientoMapper entrenamientoMapper;
+
+    @Inject
+    private EntrenamientoService entrenamientoService;
+
+    @Inject
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Inject
@@ -63,7 +72,7 @@ public class EntrenamientoResourceIntTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         EntrenamientoResource entrenamientoResource = new EntrenamientoResource();
-        ReflectionTestUtils.setField(entrenamientoResource, "entrenamientoRepository", entrenamientoRepository);
+        ReflectionTestUtils.setField(entrenamientoResource, "entrenamientoService", entrenamientoService);
         this.restEntrenamientoMockMvc = MockMvcBuilders.standaloneSetup(entrenamientoResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -93,10 +102,11 @@ public class EntrenamientoResourceIntTest {
         int databaseSizeBeforeCreate = entrenamientoRepository.findAll().size();
 
         // Create the Entrenamiento
+        EntrenamientoDTO entrenamientoDTO = entrenamientoMapper.entrenamientoToEntrenamientoDTO(entrenamiento);
 
         restEntrenamientoMockMvc.perform(post("/api/entrenamientos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(entrenamiento)))
+            .content(TestUtil.convertObjectToJsonBytes(entrenamientoDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Entrenamiento in the database
@@ -115,11 +125,12 @@ public class EntrenamientoResourceIntTest {
         // Create the Entrenamiento with an existing ID
         Entrenamiento existingEntrenamiento = new Entrenamiento();
         existingEntrenamiento.setId(1L);
+        EntrenamientoDTO existingEntrenamientoDTO = entrenamientoMapper.entrenamientoToEntrenamientoDTO(existingEntrenamiento);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restEntrenamientoMockMvc.perform(post("/api/entrenamientos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(existingEntrenamiento)))
+            .content(TestUtil.convertObjectToJsonBytes(existingEntrenamientoDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
@@ -135,10 +146,11 @@ public class EntrenamientoResourceIntTest {
         entrenamiento.setNombre(null);
 
         // Create the Entrenamiento, which fails.
+        EntrenamientoDTO entrenamientoDTO = entrenamientoMapper.entrenamientoToEntrenamientoDTO(entrenamiento);
 
         restEntrenamientoMockMvc.perform(post("/api/entrenamientos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(entrenamiento)))
+            .content(TestUtil.convertObjectToJsonBytes(entrenamientoDTO)))
             .andExpect(status().isBadRequest());
 
         List<Entrenamiento> entrenamientoList = entrenamientoRepository.findAll();
@@ -195,10 +207,11 @@ public class EntrenamientoResourceIntTest {
         updatedEntrenamiento
                 .nombre(UPDATED_NOMBRE)
                 .descripcion(UPDATED_DESCRIPCION);
+        EntrenamientoDTO entrenamientoDTO = entrenamientoMapper.entrenamientoToEntrenamientoDTO(updatedEntrenamiento);
 
         restEntrenamientoMockMvc.perform(put("/api/entrenamientos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedEntrenamiento)))
+            .content(TestUtil.convertObjectToJsonBytes(entrenamientoDTO)))
             .andExpect(status().isOk());
 
         // Validate the Entrenamiento in the database
@@ -215,11 +228,12 @@ public class EntrenamientoResourceIntTest {
         int databaseSizeBeforeUpdate = entrenamientoRepository.findAll().size();
 
         // Create the Entrenamiento
+        EntrenamientoDTO entrenamientoDTO = entrenamientoMapper.entrenamientoToEntrenamientoDTO(entrenamiento);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restEntrenamientoMockMvc.perform(put("/api/entrenamientos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(entrenamiento)))
+            .content(TestUtil.convertObjectToJsonBytes(entrenamientoDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Entrenamiento in the database

@@ -64,7 +64,7 @@
 
         <div class="form-group">
             <label data-translate="escuelitaApp.horario.categoria" for="field_categoria">Categoria</label>
-            <select class="form-control" id="field_categoria" name="categoria" ng-model="vm.horario.categoria" ng-options="categoria as categoria.id for categoria in vm.categorias track by categoria.id">
+            <select class="form-control" id="field_categoria" name="categoria" ng-model="vm.horario.categoriaId" ng-options="categoria.id as categoria.id for categoria in vm.categorias"            >
                 <option value=""></option>
             </select>
         </div>

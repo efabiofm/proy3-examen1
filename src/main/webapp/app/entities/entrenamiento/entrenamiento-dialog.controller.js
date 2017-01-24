@@ -15,10 +15,10 @@
         vm.save = save;
         vm.horarios = Horario.query({filter: 'entrenamiento-is-null'});
         $q.all([vm.entrenamiento.$promise, vm.horarios.$promise]).then(function() {
-            if (!vm.entrenamiento.horario || !vm.entrenamiento.horario.id) {
+            if (!vm.entrenamiento.horarioId) {
                 return $q.reject();
             }
-            return Horario.get({id : vm.entrenamiento.horario.id}).$promise;
+            return Horario.get({id : vm.entrenamiento.horarioId}).$promise;
         }).then(function(horario) {
             vm.horarios.push(horario);
         });
