@@ -15,19 +15,19 @@
         vm.save = save;
         vm.jugadors = Jugador.query({filter: 'calificacion-is-null'});
         $q.all([vm.calificacion.$promise, vm.jugadors.$promise]).then(function() {
-            if (!vm.calificacion.jugador || !vm.calificacion.jugador.id) {
+            if (!vm.calificacion.jugadorId) {
                 return $q.reject();
             }
-            return Jugador.get({id : vm.calificacion.jugador.id}).$promise;
+            return Jugador.get({id : vm.calificacion.jugadorId}).$promise;
         }).then(function(jugador) {
             vm.jugadors.push(jugador);
         });
         vm.entrenamientos = Entrenamiento.query({filter: 'calificacion-is-null'});
         $q.all([vm.calificacion.$promise, vm.entrenamientos.$promise]).then(function() {
-            if (!vm.calificacion.entrenamiento || !vm.calificacion.entrenamiento.id) {
+            if (!vm.calificacion.entrenamientoId) {
                 return $q.reject();
             }
-            return Entrenamiento.get({id : vm.calificacion.entrenamiento.id}).$promise;
+            return Entrenamiento.get({id : vm.calificacion.entrenamientoId}).$promise;
         }).then(function(entrenamiento) {
             vm.entrenamientos.push(entrenamiento);
         });

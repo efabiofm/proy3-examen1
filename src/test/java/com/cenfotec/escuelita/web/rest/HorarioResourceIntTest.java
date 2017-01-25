@@ -4,6 +4,9 @@ import com.cenfotec.escuelita.EscuelitaApp;
 
 import com.cenfotec.escuelita.domain.Horario;
 import com.cenfotec.escuelita.repository.HorarioRepository;
+import com.cenfotec.escuelita.service.HorarioService;
+import com.cenfotec.escuelita.service.dto.HorarioDTO;
+import com.cenfotec.escuelita.service.mapper.HorarioMapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -53,6 +56,12 @@ public class HorarioResourceIntTest {
     private HorarioRepository horarioRepository;
 
     @Inject
+    private HorarioMapper horarioMapper;
+
+    @Inject
+    private HorarioService horarioService;
+
+    @Inject
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Inject
@@ -69,7 +78,7 @@ public class HorarioResourceIntTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         HorarioResource horarioResource = new HorarioResource();
-        ReflectionTestUtils.setField(horarioResource, "horarioRepository", horarioRepository);
+        ReflectionTestUtils.setField(horarioResource, "horarioService", horarioService);
         this.restHorarioMockMvc = MockMvcBuilders.standaloneSetup(horarioResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -101,10 +110,11 @@ public class HorarioResourceIntTest {
         int databaseSizeBeforeCreate = horarioRepository.findAll().size();
 
         // Create the Horario
+        HorarioDTO horarioDTO = horarioMapper.horarioToHorarioDTO(horario);
 
         restHorarioMockMvc.perform(post("/api/horarios")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(horario)))
+            .content(TestUtil.convertObjectToJsonBytes(horarioDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Horario in the database
@@ -125,11 +135,12 @@ public class HorarioResourceIntTest {
         // Create the Horario with an existing ID
         Horario existingHorario = new Horario();
         existingHorario.setId(1L);
+        HorarioDTO existingHorarioDTO = horarioMapper.horarioToHorarioDTO(existingHorario);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restHorarioMockMvc.perform(post("/api/horarios")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(existingHorario)))
+            .content(TestUtil.convertObjectToJsonBytes(existingHorarioDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
@@ -145,10 +156,11 @@ public class HorarioResourceIntTest {
         horario.setNombre(null);
 
         // Create the Horario, which fails.
+        HorarioDTO horarioDTO = horarioMapper.horarioToHorarioDTO(horario);
 
         restHorarioMockMvc.perform(post("/api/horarios")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(horario)))
+            .content(TestUtil.convertObjectToJsonBytes(horarioDTO)))
             .andExpect(status().isBadRequest());
 
         List<Horario> horarioList = horarioRepository.findAll();
@@ -163,10 +175,11 @@ public class HorarioResourceIntTest {
         horario.setHoraInicio(null);
 
         // Create the Horario, which fails.
+        HorarioDTO horarioDTO = horarioMapper.horarioToHorarioDTO(horario);
 
         restHorarioMockMvc.perform(post("/api/horarios")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(horario)))
+            .content(TestUtil.convertObjectToJsonBytes(horarioDTO)))
             .andExpect(status().isBadRequest());
 
         List<Horario> horarioList = horarioRepository.findAll();
@@ -181,10 +194,11 @@ public class HorarioResourceIntTest {
         horario.setHoraFin(null);
 
         // Create the Horario, which fails.
+        HorarioDTO horarioDTO = horarioMapper.horarioToHorarioDTO(horario);
 
         restHorarioMockMvc.perform(post("/api/horarios")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(horario)))
+            .content(TestUtil.convertObjectToJsonBytes(horarioDTO)))
             .andExpect(status().isBadRequest());
 
         List<Horario> horarioList = horarioRepository.findAll();
@@ -199,10 +213,11 @@ public class HorarioResourceIntTest {
         horario.setDia(null);
 
         // Create the Horario, which fails.
+        HorarioDTO horarioDTO = horarioMapper.horarioToHorarioDTO(horario);
 
         restHorarioMockMvc.perform(post("/api/horarios")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(horario)))
+            .content(TestUtil.convertObjectToJsonBytes(horarioDTO)))
             .andExpect(status().isBadRequest());
 
         List<Horario> horarioList = horarioRepository.findAll();
@@ -265,10 +280,11 @@ public class HorarioResourceIntTest {
                 .horaInicio(UPDATED_HORA_INICIO)
                 .horaFin(UPDATED_HORA_FIN)
                 .dia(UPDATED_DIA);
+        HorarioDTO horarioDTO = horarioMapper.horarioToHorarioDTO(updatedHorario);
 
         restHorarioMockMvc.perform(put("/api/horarios")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedHorario)))
+            .content(TestUtil.convertObjectToJsonBytes(horarioDTO)))
             .andExpect(status().isOk());
 
         // Validate the Horario in the database
@@ -287,11 +303,12 @@ public class HorarioResourceIntTest {
         int databaseSizeBeforeUpdate = horarioRepository.findAll().size();
 
         // Create the Horario
+        HorarioDTO horarioDTO = horarioMapper.horarioToHorarioDTO(horario);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restHorarioMockMvc.perform(put("/api/horarios")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(horario)))
+            .content(TestUtil.convertObjectToJsonBytes(horarioDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Horario in the database

@@ -4,6 +4,9 @@ import com.cenfotec.escuelita.EscuelitaApp;
 
 import com.cenfotec.escuelita.domain.Posicion;
 import com.cenfotec.escuelita.repository.PosicionRepository;
+import com.cenfotec.escuelita.service.PosicionService;
+import com.cenfotec.escuelita.service.dto.PosicionDTO;
+import com.cenfotec.escuelita.service.mapper.PosicionMapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -47,6 +50,12 @@ public class PosicionResourceIntTest {
     private PosicionRepository posicionRepository;
 
     @Inject
+    private PosicionMapper posicionMapper;
+
+    @Inject
+    private PosicionService posicionService;
+
+    @Inject
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Inject
@@ -63,7 +72,7 @@ public class PosicionResourceIntTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         PosicionResource posicionResource = new PosicionResource();
-        ReflectionTestUtils.setField(posicionResource, "posicionRepository", posicionRepository);
+        ReflectionTestUtils.setField(posicionResource, "posicionService", posicionService);
         this.restPosicionMockMvc = MockMvcBuilders.standaloneSetup(posicionResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -93,10 +102,11 @@ public class PosicionResourceIntTest {
         int databaseSizeBeforeCreate = posicionRepository.findAll().size();
 
         // Create the Posicion
+        PosicionDTO posicionDTO = posicionMapper.posicionToPosicionDTO(posicion);
 
         restPosicionMockMvc.perform(post("/api/posicions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(posicion)))
+            .content(TestUtil.convertObjectToJsonBytes(posicionDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Posicion in the database
@@ -115,11 +125,12 @@ public class PosicionResourceIntTest {
         // Create the Posicion with an existing ID
         Posicion existingPosicion = new Posicion();
         existingPosicion.setId(1L);
+        PosicionDTO existingPosicionDTO = posicionMapper.posicionToPosicionDTO(existingPosicion);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restPosicionMockMvc.perform(post("/api/posicions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(existingPosicion)))
+            .content(TestUtil.convertObjectToJsonBytes(existingPosicionDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
@@ -135,10 +146,11 @@ public class PosicionResourceIntTest {
         posicion.setNombre(null);
 
         // Create the Posicion, which fails.
+        PosicionDTO posicionDTO = posicionMapper.posicionToPosicionDTO(posicion);
 
         restPosicionMockMvc.perform(post("/api/posicions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(posicion)))
+            .content(TestUtil.convertObjectToJsonBytes(posicionDTO)))
             .andExpect(status().isBadRequest());
 
         List<Posicion> posicionList = posicionRepository.findAll();
@@ -195,10 +207,11 @@ public class PosicionResourceIntTest {
         updatedPosicion
                 .nombre(UPDATED_NOMBRE)
                 .descripcion(UPDATED_DESCRIPCION);
+        PosicionDTO posicionDTO = posicionMapper.posicionToPosicionDTO(updatedPosicion);
 
         restPosicionMockMvc.perform(put("/api/posicions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedPosicion)))
+            .content(TestUtil.convertObjectToJsonBytes(posicionDTO)))
             .andExpect(status().isOk());
 
         // Validate the Posicion in the database
@@ -215,11 +228,12 @@ public class PosicionResourceIntTest {
         int databaseSizeBeforeUpdate = posicionRepository.findAll().size();
 
         // Create the Posicion
+        PosicionDTO posicionDTO = posicionMapper.posicionToPosicionDTO(posicion);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restPosicionMockMvc.perform(put("/api/posicions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(posicion)))
+            .content(TestUtil.convertObjectToJsonBytes(posicionDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Posicion in the database

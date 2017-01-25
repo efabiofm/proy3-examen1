@@ -14,9 +14,9 @@
             "fieldType": "String"
         }
     ],
-    "changelogDate": "20170122184019",
+    "changelogDate": "20170124070220",
     "entityTableName": "posicion",
-    "dto": "no",
+    "dto": "mapstruct",
     "pagination": "no",
-    "service": "no"
+    "service": "serviceClass"
 }

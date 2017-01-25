@@ -74,13 +74,13 @@
 
         <div class="form-group">
             <label data-translate="escuelitaApp.jugador.categoria" for="field_categoria">Categoria</label>
-            <select class="form-control" id="field_categoria" name="categoria" ng-model="vm.jugador.categoria" ng-options="categoria as categoria.id for categoria in vm.categorias track by categoria.id">
+            <select class="form-control" id="field_categoria" name="categoria" ng-model="vm.jugador.categoriaId" ng-options="categoria.id as categoria.id for categoria in vm.categorias"            >
                 <option value=""></option>
             </select>
         </div>
         <div class="form-group">
             <label data-translate="escuelitaApp.jugador.posicion" for="field_posicion">Posicion</label>
-            <select class="form-control" id="field_posicion" name="posicion" ng-model="vm.jugador.posicion" ng-options="posicion as posicion.id for posicion in vm.posicions track by posicion.id">
+            <select class="form-control" id="field_posicion" name="posicion" ng-model="vm.jugador.posicionId" ng-options="posicion.id as posicion.id for posicion in vm.posicions"            >
                 <option value=""></option>
             </select>
         </div>

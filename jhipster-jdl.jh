@@ -1,0 +1,81 @@
+entity Jugador {
+	nombre String required,
+    apellido String,
+    fechaNacimiento  LocalDate required,
+    nombreEncargado String,
+    apellidoEncargado String,
+    telefonoEncargado String,
+    correoEncargado String
+}
+
+entity Entrenador {
+    nombre String required,
+    apellido String,
+    fechaNacimiento LocalDate required,
+    telefono String,
+    correo String
+}
+
+entity Posicion{
+    nombre String required,
+    descripcion String
+}
+
+entity Categoria{
+    nombre String required,
+    edad Integer,
+    descripcion String
+}
+
+entity Horario{
+    nombre String required,
+    horaInicio String required,
+    horaFin String required,
+    dia String required
+}
+
+entity Entrenamiento{
+    nombre String required,
+    descripcion String,
+}
+
+entity Calificacion{
+    descripcion String,
+    nota Integer required
+}
+
+// entity TablaCalificaciones
+
+relationship ManyToOne {
+  Entrenamiento{entrenador} to Entrenador{entrenamiento}
+}
+
+relationship ManyToOne {
+	Jugador{categoria} to Categoria
+}
+
+relationship ManyToOne {
+	Jugador{posicion} to Posicion
+}
+
+relationship ManyToOne {
+	Horario{categoria} to Categoria
+}
+
+relationship OneToOne {
+	Entrenamiento{horario} to Horario
+}
+
+relationship OneToOne {
+	Calificacion{jugador} to Jugador
+}
+
+relationship OneToOne {
+	Calificacion{entrenamiento} to Entrenamiento
+}
+
+
+dto * with mapstruct
+
+service all with serviceClass
+
