@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class HorarioService {
 
     private final Logger log = LoggerFactory.getLogger(HorarioService.class);
-
+    
     @Inject
     private HorarioRepository horarioRepository;
 
@@ -45,13 +45,12 @@ public class HorarioService {
 
     /**
      *  Get all the horarios.
-     *
+     *  
      *  @return the list of entities
      */
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true) 
     public List<HorarioDTO> findAll() {
         log.debug("Request to get all Horarios");
-
         List<HorarioDTO> result = horarioRepository.findAll().stream()
             .map(horarioMapper::horarioToHorarioDTO)
             .collect(Collectors.toCollection(LinkedList::new));
@@ -65,7 +64,7 @@ public class HorarioService {
      *  @param id the id of the entity
      *  @return the entity
      */
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true) 
     public HorarioDTO findOne(Long id) {
         log.debug("Request to get Horario : {}", id);
         Horario horario = horarioRepository.findOne(id);

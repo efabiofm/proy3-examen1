@@ -13,6 +13,7 @@ import java.util.List;
 public interface HorarioMapper {
 
     @Mapping(source = "categoria.id", target = "categoriaId")
+    @Mapping(source = "categoria.nombre", target = "categoriaNombre")
     HorarioDTO horarioToHorarioDTO(Horario horario);
 
     List<HorarioDTO> horariosToHorarioDTOs(List<Horario> horarios);

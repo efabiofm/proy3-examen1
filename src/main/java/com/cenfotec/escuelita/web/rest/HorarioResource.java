@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 public class HorarioResource {
 
     private final Logger log = LoggerFactory.getLogger(HorarioResource.class);
-
+        
     @Inject
     private HorarioService horarioService;
 
