@@ -22,8 +22,14 @@ public class EntrenamientoDTO implements Serializable {
 
     private Long horarioId;
     
+
+    private String horarioNombre;
+
     private Long entrenadorId;
     
+
+    private String entrenadorNombre;
+
     public Long getId() {
         return id;
     }
@@ -54,12 +60,30 @@ public class EntrenamientoDTO implements Serializable {
         this.horarioId = horarioId;
     }
 
+
+    public String getHorarioNombre() {
+        return horarioNombre;
+    }
+
+    public void setHorarioNombre(String horarioNombre) {
+        this.horarioNombre = horarioNombre;
+    }
+
     public Long getEntrenadorId() {
         return entrenadorId;
     }
 
     public void setEntrenadorId(Long entrenadorId) {
         this.entrenadorId = entrenadorId;
+    }
+
+
+    public String getEntrenadorNombre() {
+        return entrenadorNombre;
+    }
+
+    public void setEntrenadorNombre(String entrenadorNombre) {
+        this.entrenadorNombre = entrenadorNombre;
     }
 
     @Override

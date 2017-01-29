@@ -119,4 +119,13 @@ public class CalificacionResource {
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("calificacion", id.toString())).build();
     }
 
+    @GetMapping("/calificacions/entrenamiento/{id}")
+    @Timed
+    public ResponseEntity<List<CalificacionDTO>> getAllCalificacionsByEntrenamiento(@PathVariable Long id)
+        throws URISyntaxException {
+        log.debug("REST request to get a page of Items");
+        List<CalificacionDTO> calificacions = calificacionService.findAllByEntrenamiento(id);
+        return new ResponseEntity<>(calificacions, HttpStatus.OK);
+    }
+
 }

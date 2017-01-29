@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class CalificacionService {
 
     private final Logger log = LoggerFactory.getLogger(CalificacionService.class);
-    
+
     @Inject
     private CalificacionRepository calificacionRepository;
 
@@ -45,10 +45,10 @@ public class CalificacionService {
 
     /**
      *  Get all the calificacions.
-     *  
+     *
      *  @return the list of entities
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public List<CalificacionDTO> findAll() {
         log.debug("Request to get all Calificacions");
         List<CalificacionDTO> result = calificacionRepository.findAll().stream()
@@ -64,7 +64,7 @@ public class CalificacionService {
      *  @param id the id of the entity
      *  @return the entity
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public CalificacionDTO findOne(Long id) {
         log.debug("Request to get Calificacion : {}", id);
         Calificacion calificacion = calificacionRepository.findOne(id);
@@ -80,5 +80,14 @@ public class CalificacionService {
     public void delete(Long id) {
         log.debug("Request to delete Calificacion : {}", id);
         calificacionRepository.delete(id);
+    }
+
+    @Transactional(readOnly = true)
+    public List<CalificacionDTO> findAllByEntrenamiento(Long id) {
+        log.debug("Request to get all Items");
+        List<CalificacionDTO> result = calificacionRepository.findByEntrenamiento_Id(id).stream()
+            .map(calificacionMapper::calificacionToCalificacionDTO)
+            .collect(Collectors.toCollection(LinkedList::new));
+        return result;
     }
 }

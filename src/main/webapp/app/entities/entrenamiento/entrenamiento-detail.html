@@ -14,13 +14,55 @@
         </dd>
         <dt><span data-translate="escuelitaApp.entrenamiento.horario">Horario</span></dt>
         <dd>
-            <a ui-sref="horario-detail({id:vm.entrenamiento.horarioId})">{{vm.entrenamiento.horarioId}}</a>
+            <a ui-sref="horario-detail({id:vm.entrenamiento.horarioId})">{{vm.entrenamiento.horarioNombre}}</a>
         </dd>
         <dt><span data-translate="escuelitaApp.entrenamiento.entrenador">Entrenador</span></dt>
         <dd>
-            <a ui-sref="entrenador-detail({id:vm.entrenamiento.entrenadorId})">{{vm.entrenamiento.entrenadorId}}</a>
+            <a ui-sref="entrenador-detail({id:vm.entrenamiento.entrenadorId})">{{vm.entrenamiento.entrenadorNombre}}</a>
         </dd>
     </dl>
+
+    <h3>Calificaciones</h3>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Jugador</th>
+                <th>Nota</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="calificacion in vm.calificaciones track by $index">
+                    <td ng-bind="calificacion.id"></td>
+                    <td ng-bind="calificacion.jugadorId"></td>
+                    <td ng-bind="calificacion.nota"></td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="calificacion-detail({id:calificacion.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm" data-translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="calilficacion.edit({id:calificacion.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="calificacion.delete({id:calificacion.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm" data-translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
     <button type="submit"
             ui-sref="{{ vm.previousState }}"
@@ -31,5 +73,10 @@
     <button type="button" ui-sref="entrenamiento-detail.edit({id:vm.entrenamiento.id})" class="btn btn-primary">
         <span class="glyphicon glyphicon-pencil"></span>
         <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+
+    <button type="button" ui-sref="entrenamiento-detail.calificacion-new({id:vm.entrenamiento.id})" class="btn btn-warning">
+        <span class="glyphicon glyphicon-thumbs-up"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.rate"> Rate</span>
     </button>
 </div>

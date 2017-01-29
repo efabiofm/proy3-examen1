@@ -88,8 +88,8 @@
                 });
             }]
         })
-        .state('calificacion.new', {
-            parent: 'calificacion',
+        .state('entrenamiento-detail.calificacion-new', {
+            parent: 'entrenamiento-detail',
             url: '/new',
             data: {
                 authorities: ['ROLE_USER']
@@ -111,9 +111,9 @@
                         }
                     }
                 }).result.then(function() {
-                    $state.go('calificacion', null, { reload: 'calificacion' });
+                    $state.go('entrenamiento-detail', null, { reload: 'entrenamiento-detail' });
                 }, function() {
-                    $state.go('calificacion');
+                    $state.go('entrenamiento-detail');
                 });
             }]
         })

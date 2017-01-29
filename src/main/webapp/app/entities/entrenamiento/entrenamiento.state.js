@@ -33,7 +33,7 @@
         })
         .state('entrenamiento-detail', {
             parent: 'entity',
-            url: '/entrenamiento/{id}',
+            url: '/entrenamiento/{id}/{horarioId}',
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'escuelitaApp.entrenamiento.detail.title'
@@ -60,6 +60,9 @@
                         url: $state.href($state.current.name, $state.params)
                     };
                     return currentStateData;
+                }],
+                calificaciones: ["$stateParams", "Calificacion", function($stateParams, Calificacion) {
+                    return Calificacion.getByEntrenamiento({id: $stateParams.id}).$promise;
                 }]
             }
         })

@@ -5,12 +5,13 @@
         .module('escuelitaApp')
         .controller('CalificacionDialogController', CalificacionDialogController);
 
-    CalificacionDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'Calificacion', 'Jugador', 'Entrenamiento'];
+    CalificacionDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'Calificacion', 'Jugador'];
 
-    function CalificacionDialogController ($timeout, $scope, $stateParams, $uibModalInstance, $q, entity, Calificacion, Jugador, Entrenamiento) {
+    function CalificacionDialogController ($timeout, $scope, $stateParams, $uibModalInstance, $q, entity, Calificacion, Jugador) {
         var vm = this;
 
         vm.calificacion = entity;
+        vm.calificacion.entrenamientoId = parseInt($stateParams.id);
         vm.clear = clear;
         vm.save = save;
         vm.jugadors = Jugador.query({filter: 'calificacion-is-null'});
@@ -21,15 +22,6 @@
             return Jugador.get({id : vm.calificacion.jugadorId}).$promise;
         }).then(function(jugador) {
             vm.jugadors.push(jugador);
-        });
-        vm.entrenamientos = Entrenamiento.query({filter: 'calificacion-is-null'});
-        $q.all([vm.calificacion.$promise, vm.entrenamientos.$promise]).then(function() {
-            if (!vm.calificacion.entrenamientoId) {
-                return $q.reject();
-            }
-            return Entrenamiento.get({id : vm.calificacion.entrenamientoId}).$promise;
-        }).then(function(entrenamiento) {
-            vm.entrenamientos.push(entrenamiento);
         });
 
         $timeout(function (){
