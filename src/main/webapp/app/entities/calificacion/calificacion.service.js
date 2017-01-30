@@ -7,7 +7,7 @@
     Calificacion.$inject = ['$resource'];
 
     function Calificacion ($resource) {
-        var resourceUrl =  'api/calificacions/entrenamiento/:id';
+        var resourceUrl =  'api/calificacions/:id';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},
@@ -21,7 +21,7 @@
                 }
             },
             'update': { method:'PUT' },
-            'getByEntrenamiento': { method: 'GET', isArray: true }
+            'getByEntrenamiento':  { method: 'GET', isArray: true, url: 'api/calificacions/entrenamiento/:id'}
         });
     }
 })();

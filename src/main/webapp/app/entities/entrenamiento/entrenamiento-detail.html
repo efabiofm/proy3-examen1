@@ -35,24 +35,24 @@
             <tbody>
                 <tr ng-repeat="calificacion in vm.calificaciones track by $index">
                     <td ng-bind="calificacion.id"></td>
-                    <td ng-bind="calificacion.jugadorId"></td>
+                    <td ng-bind="calificacion.jugadorNombre"></td>
                     <td ng-bind="calificacion.nota"></td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
-                                    ui-sref="calificacion-detail({id:calificacion.id})"
+                                    ui-sref="entrenamiento-detail.calificacion-detail({id:calificacion.id})"
                                     class="btn btn-info btn-sm">
                                 <span class="glyphicon glyphicon-eye-open"></span>
                                 <span class="hidden-xs hidden-sm" data-translate="entity.action.view"></span>
                             </button>
                             <button type="submit"
-                                    ui-sref="calilficacion.edit({id:calificacion.id})"
+                                    ui-sref="entrenamiento-detail.calificacion-edit({id:calificacion.id})"
                                     class="btn btn-primary btn-sm">
                                 <span class="glyphicon glyphicon-pencil"></span>
                                 <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"></span>
                             </button>
                             <button type="submit"
-                                    ui-sref="calificacion.delete({id:calificacion.id})"
+                                    ui-sref="entrenamiento-detail.calificacion-delete({id:calificacion.id})"
                                     class="btn btn-danger btn-sm">
                                 <span class="glyphicon glyphicon-remove-circle"></span>
                                 <span class="hidden-xs hidden-sm" data-translate="entity.action.delete"></span>
@@ -75,7 +75,7 @@
         <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
     </button>
 
-    <button type="button" ui-sref="entrenamiento-detail.calificacion-new({id:vm.entrenamiento.id})" class="btn btn-warning">
+    <button type="button" ui-sref="entrenamiento-detail.calificacion-new({id:vm.entrenamiento.id, horarioId:vm.entrenamiento.horarioId})" class="btn btn-warning">
         <span class="glyphicon glyphicon-thumbs-up"></span>
         <span class="hidden-xs hidden-sm" data-translate="entity.action.rate"> Rate</span>
     </button>

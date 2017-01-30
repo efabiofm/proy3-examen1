@@ -84,7 +84,6 @@ public class CalificacionService {
 
     @Transactional(readOnly = true)
     public List<CalificacionDTO> findAllByEntrenamiento(Long id) {
-        log.debug("Request to get all Items");
         List<CalificacionDTO> result = calificacionRepository.findByEntrenamiento_Id(id).stream()
             .map(calificacionMapper::calificacionToCalificacionDTO)
             .collect(Collectors.toCollection(LinkedList::new));

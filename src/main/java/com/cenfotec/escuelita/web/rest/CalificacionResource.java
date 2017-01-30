@@ -123,7 +123,6 @@ public class CalificacionResource {
     @Timed
     public ResponseEntity<List<CalificacionDTO>> getAllCalificacionsByEntrenamiento(@PathVariable Long id)
         throws URISyntaxException {
-        log.debug("REST request to get a page of Items");
         List<CalificacionDTO> calificacions = calificacionService.findAllByEntrenamiento(id);
         return new ResponseEntity<>(calificacions, HttpStatus.OK);
     }

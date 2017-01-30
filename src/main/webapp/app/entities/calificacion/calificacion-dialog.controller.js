@@ -5,24 +5,16 @@
         .module('escuelitaApp')
         .controller('CalificacionDialogController', CalificacionDialogController);
 
-    CalificacionDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'Calificacion', 'Jugador'];
+    CalificacionDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Calificacion', 'jugadors'];
 
-    function CalificacionDialogController ($timeout, $scope, $stateParams, $uibModalInstance, $q, entity, Calificacion, Jugador) {
+    function CalificacionDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Calificacion, jugadors) {
         var vm = this;
 
         vm.calificacion = entity;
-        vm.calificacion.entrenamientoId = parseInt($stateParams.id);
+        vm.calificacion.entrenamientoId = $stateParams.entrenamientoId;
+        vm.jugadors = jugadors;
         vm.clear = clear;
         vm.save = save;
-        vm.jugadors = Jugador.query({filter: 'calificacion-is-null'});
-        $q.all([vm.calificacion.$promise, vm.jugadors.$promise]).then(function() {
-            if (!vm.calificacion.jugadorId) {
-                return $q.reject();
-            }
-            return Jugador.get({id : vm.calificacion.jugadorId}).$promise;
-        }).then(function(jugador) {
-            vm.jugadors.push(jugador);
-        });
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
