@@ -34,15 +34,27 @@
 
         <div class="form-group">
             <label data-translate="escuelitaApp.entrenamiento.horario" for="field_horario">Horario</label>
-            <select class="form-control" id="field_horario" name="horario" ng-model="vm.entrenamiento.horarioId" ng-options="horario.id as horario.id for horario in vm.horarios | orderBy:'id'">
+            <select class="form-control" id="field_horario" name="horario" ng-model="vm.entrenamiento.horarioId" ng-options="horario.id as horario.nombre for horario in vm.horarios | orderBy:'id'" required>
                 <option value=""></option>
             </select>
         </div>
+        <div ng-show="editForm.horario.$invalid">
+            <p class="help-block"
+                ng-show="editForm.horario.$error.required" data-translate="entity.validation.required">
+                This field is required.
+            </p>
+        </div>
         <div class="form-group">
             <label data-translate="escuelitaApp.entrenamiento.entrenador" for="field_entrenador">Entrenador</label>
-            <select class="form-control" id="field_entrenador" name="entrenador" ng-model="vm.entrenamiento.entrenadorId" ng-options="entrenador.id as entrenador.id for entrenador in vm.entrenadors"            >
+            <select class="form-control" id="field_entrenador" name="entrenador" ng-model="vm.entrenamiento.entrenadorId" ng-options="entrenador.id as entrenador.nombre for entrenador in vm.entrenadors"             required>
                 <option value=""></option>
             </select>
+        </div>
+        <div ng-show="editForm.entrenador.$invalid">
+            <p class="help-block"
+                ng-show="editForm.entrenador.$error.required" data-translate="entity.validation.required">
+                This field is required.
+            </p>
         </div>
     </div>
     <div class="modal-footer">

@@ -32,15 +32,15 @@
                     <td>{{entrenamiento.nombre}}</td>
                     <td>{{entrenamiento.descripcion}}</td>
                     <td>
-                        <a ui-sref="horario-detail({id:entrenamiento.horarioId})">{{entrenamiento.horarioId}}</a>
+                        <a ui-sref="horario-detail({id:entrenamiento.horarioId})">{{entrenamiento.horarioNombre}}</a>
                     </td>
                     <td>
-                        <a ui-sref="entrenador-detail({id:entrenamiento.entrenadorId})">{{entrenamiento.entrenadorId}}</a>
+                        <a ui-sref="entrenador-detail({id:entrenamiento.entrenadorId})">{{entrenamiento.entrenadorNombre}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
-                                    ui-sref="entrenamiento-detail({id:entrenamiento.id})"
+                                    ui-sref="entrenamiento-detail({entrenamientoId:entrenamiento.id, horarioId:entrenamiento.horarioId})"
                                     class="btn btn-info btn-sm">
                                 <span class="glyphicon glyphicon-eye-open"></span>
                                 <span class="hidden-xs hidden-sm" data-translate="entity.action.view"></span>

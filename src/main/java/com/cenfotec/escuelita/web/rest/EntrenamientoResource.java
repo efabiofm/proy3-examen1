@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 public class EntrenamientoResource {
 
     private final Logger log = LoggerFactory.getLogger(EntrenamientoResource.class);
-
+        
     @Inject
     private EntrenamientoService entrenamientoService;
 
