@@ -7,32 +7,16 @@
 
     stateConfig.$inject = ['$stateProvider'];
 
+    var jugadors = ['$stateParams', 'Horario', 'Jugador', function ($stateParams, Horario, Jugador) {
+        return  Horario.get({id:$stateParams.horarioId}).$promise.then(function (horario) {
+            return Jugador.getByCategoria({id:horario.categoriaId});
+        });
+    }];
+
     function stateConfig($stateProvider) {
         $stateProvider
-        .state('calificacion', {
-            parent: 'entity',
-            url: '/calificacion',
-            data: {
-                authorities: ['ROLE_USER'],
-                pageTitle: 'escuelitaApp.calificacion.home.title'
-            },
-            views: {
-                'content@': {
-                    templateUrl: 'app/entities/calificacion/calificacions.html',
-                    controller: 'CalificacionController',
-                    controllerAs: 'vm'
-                }
-            },
-            resolve: {
-                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('calificacion');
-                    $translatePartialLoader.addPart('global');
-                    return $translate.refresh();
-                }]
-            }
-        })
-        .state('calificacion-detail', {
-            parent: 'entity',
+        .state('entrenamiento-detail.calificacion-detail', {
+            parent: 'entrenamiento-detail',
             url: '/calificacion/{id}',
             data: {
                 authorities: ['ROLE_USER'],
@@ -63,8 +47,8 @@
                 }]
             }
         })
-        .state('calificacion-detail.edit', {
-            parent: 'calificacion-detail',
+        .state('entrenamiento-detail.calificacion-detail.edit', {
+            parent: 'entrenamiento-detail.calificacion-detail',
             url: '/detail/edit',
             data: {
                 authorities: ['ROLE_USER']
@@ -79,7 +63,8 @@
                     resolve: {
                         entity: ['Calificacion', function(Calificacion) {
                             return Calificacion.get({id : $stateParams.id}).$promise;
-                        }]
+                        }],
+                        jugadors: jugadors
                     }
                 }).result.then(function() {
                     $state.go('^', {}, { reload: false });
@@ -88,8 +73,8 @@
                 });
             }]
         })
-        .state('calificacion.new', {
-            parent: 'calificacion',
+        .state('entrenamiento-detail.calificacion-new', {
+            parent: 'entrenamiento-detail',
             url: '/new',
             data: {
                 authorities: ['ROLE_USER']
@@ -108,18 +93,19 @@
                                 nota: null,
                                 id: null
                             };
-                        }
+                        },
+                        jugadors: jugadors
                     }
                 }).result.then(function() {
-                    $state.go('calificacion', null, { reload: 'calificacion' });
+                    $state.go('entrenamiento-detail', null, { reload: 'entrenamiento-detail' });
                 }, function() {
-                    $state.go('calificacion');
+                    $state.go('entrenamiento-detail');
                 });
-            }]
+            }],
         })
-        .state('calificacion.edit', {
-            parent: 'calificacion',
-            url: '/{id}/edit',
+        .state('entrenamiento-detail.calificacion-edit', {
+            parent: 'entrenamiento-detail',
+            url: '/calificacion/{id}/edit',
             data: {
                 authorities: ['ROLE_USER']
             },
@@ -133,18 +119,19 @@
                     resolve: {
                         entity: ['Calificacion', function(Calificacion) {
                             return Calificacion.get({id : $stateParams.id}).$promise;
-                        }]
+                        }],
+                        jugadors: jugadors
                     }
                 }).result.then(function() {
-                    $state.go('calificacion', null, { reload: 'calificacion' });
+                    $state.go('entrenamiento-detail', null, { reload: 'entrenamiento-detail' });
                 }, function() {
                     $state.go('^');
                 });
             }]
         })
-        .state('calificacion.delete', {
-            parent: 'calificacion',
-            url: '/{id}/delete',
+        .state('entrenamiento-detail.calificacion-delete', {
+            parent: 'entrenamiento-detail',
+            url: '/calificacion/{id}/delete',
             data: {
                 authorities: ['ROLE_USER']
             },
@@ -160,7 +147,7 @@
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('calificacion', null, { reload: 'calificacion' });
+                    $state.go('entrenamiento-detail', null, { reload: 'entrenamiento-detail' });
                 }, function() {
                     $state.go('^');
                 });

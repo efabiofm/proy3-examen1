@@ -26,12 +26,12 @@ public class Calificacion implements Serializable {
     @Column(name = "nota", nullable = false)
     private Integer nota;
 
-    @OneToOne
-    @JoinColumn(unique = true)
+    @ManyToOne
+    @NotNull
     private Jugador jugador;
 
-    @OneToOne
-    @JoinColumn(unique = true)
+    @ManyToOne
+    @NotNull
     private Entrenamiento entrenamiento;
 
     public Long getId() {

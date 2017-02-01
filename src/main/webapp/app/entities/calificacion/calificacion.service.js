@@ -20,7 +20,8 @@
                     return data;
                 }
             },
-            'update': { method:'PUT' }
+            'update': { method:'PUT' },
+            'getByEntrenamiento':  { method: 'GET', isArray: true, url: 'api/calificacions/entrenamiento/:id'}
         });
     }
 })();

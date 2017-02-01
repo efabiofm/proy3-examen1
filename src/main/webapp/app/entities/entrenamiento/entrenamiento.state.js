@@ -26,6 +26,7 @@
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                     $translatePartialLoader.addPart('entrenamiento');
+                    $translatePartialLoader.addPart('calificacion');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
                 }]
@@ -33,7 +34,7 @@
         })
         .state('entrenamiento-detail', {
             parent: 'entity',
-            url: '/entrenamiento/{id}',
+            url: '/entrenamiento/{entrenamientoId}/horario/{horarioId}',
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'escuelitaApp.entrenamiento.detail.title'
@@ -51,7 +52,7 @@
                     return $translate.refresh();
                 }],
                 entity: ['$stateParams', 'Entrenamiento', function($stateParams, Entrenamiento) {
-                    return Entrenamiento.get({id : $stateParams.id}).$promise;
+                    return Entrenamiento.get({id : $stateParams.entrenamientoId}).$promise;
                 }],
                 previousState: ["$state", function ($state) {
                     var currentStateData = {
@@ -60,6 +61,9 @@
                         url: $state.href($state.current.name, $state.params)
                     };
                     return currentStateData;
+                }],
+                calificaciones: ["$stateParams", "Calificacion", function($stateParams, Calificacion) {
+                    return Calificacion.getByEntrenamiento({id: $stateParams.entrenamientoId}).$promise;
                 }]
             }
         })
@@ -78,7 +82,7 @@
                     size: 'lg',
                     resolve: {
                         entity: ['Entrenamiento', function(Entrenamiento) {
-                            return Entrenamiento.get({id : $stateParams.id}).$promise;
+                            return Entrenamiento.get({id : $stateParams.entrenamientoId}).$promise;
                         }]
                     }
                 }).result.then(function() {

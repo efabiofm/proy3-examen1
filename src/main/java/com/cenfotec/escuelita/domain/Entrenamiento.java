@@ -27,10 +27,12 @@ public class Entrenamiento implements Serializable {
     private String descripcion;
 
     @OneToOne
+    @NotNull
     @JoinColumn(unique = true)
     private Horario horario;
 
     @ManyToOne
+    @NotNull
     private Entrenador entrenador;
 
     public Long getId() {

@@ -13,7 +13,9 @@ import java.util.List;
 public interface EntrenamientoMapper {
 
     @Mapping(source = "horario.id", target = "horarioId")
+    @Mapping(source = "horario.nombre", target = "horarioNombre")
     @Mapping(source = "entrenador.id", target = "entrenadorId")
+    @Mapping(source = "entrenador.nombre", target = "entrenadorNombre")
     EntrenamientoDTO entrenamientoToEntrenamientoDTO(Entrenamiento entrenamiento);
 
     List<EntrenamientoDTO> entrenamientosToEntrenamientoDTOs(List<Entrenamiento> entrenamientos);
