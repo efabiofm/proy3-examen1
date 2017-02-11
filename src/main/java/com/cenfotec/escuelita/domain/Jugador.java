@@ -44,10 +44,10 @@ public class Jugador implements Serializable {
     private String correoEncargado;
 
     @ManyToOne
-    private Categoria categoria;
+    private Posicion posicion;
 
     @ManyToOne
-    private Posicion posicion;
+    private Categoria categoria;
 
     public Long getId() {
         return id;
@@ -148,19 +148,6 @@ public class Jugador implements Serializable {
         this.correoEncargado = correoEncargado;
     }
 
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public Jugador categoria(Categoria categoria) {
-        this.categoria = categoria;
-        return this;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
-
     public Posicion getPosicion() {
         return posicion;
     }
@@ -172,6 +159,19 @@ public class Jugador implements Serializable {
 
     public void setPosicion(Posicion posicion) {
         this.posicion = posicion;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public Jugador categoria(Categoria categoria) {
+        this.categoria = categoria;
+        return this;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
     @Override

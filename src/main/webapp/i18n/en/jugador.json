@@ -23,8 +23,8 @@
             "apellidoEncargado": "Apellido Encargado",
             "telefonoEncargado": "Telefono Encargado",
             "correoEncargado": "Correo Encargado",
-            "categoria": "Categoria",
-            "posicion": "Posicion"
+            "posicion": "Posicion",
+            "categoria": "Categoria"
         }
     }
 }

@@ -32,10 +32,13 @@ public class JugadorDTO implements Serializable {
     private String correoEncargado;
 
 
-    private Long categoriaId;
-    
     private Long posicionId;
     
+    private Long categoriaId;
+    
+
+    private String categoriaNombre;
+
     public Long getId() {
         return id;
     }
@@ -93,6 +96,14 @@ public class JugadorDTO implements Serializable {
         this.correoEncargado = correoEncargado;
     }
 
+    public Long getPosicionId() {
+        return posicionId;
+    }
+
+    public void setPosicionId(Long posicionId) {
+        this.posicionId = posicionId;
+    }
+
     public Long getCategoriaId() {
         return categoriaId;
     }
@@ -101,12 +112,13 @@ public class JugadorDTO implements Serializable {
         this.categoriaId = categoriaId;
     }
 
-    public Long getPosicionId() {
-        return posicionId;
+
+    public String getCategoriaNombre() {
+        return categoriaNombre;
     }
 
-    public void setPosicionId(Long posicionId) {
-        this.posicionId = posicionId;
+    public void setCategoriaNombre(String categoriaNombre) {
+        this.categoriaNombre = categoriaNombre;
     }
 
     @Override

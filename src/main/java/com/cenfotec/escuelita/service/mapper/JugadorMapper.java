@@ -12,26 +12,18 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = {})
 public interface JugadorMapper {
 
-    @Mapping(source = "categoria.id", target = "categoriaId")
     @Mapping(source = "posicion.id", target = "posicionId")
+    @Mapping(source = "categoria.id", target = "categoriaId")
+    @Mapping(source = "categoria.nombre", target = "categoriaNombre")
     JugadorDTO jugadorToJugadorDTO(Jugador jugador);
 
     List<JugadorDTO> jugadorsToJugadorDTOs(List<Jugador> jugadors);
 
-    @Mapping(source = "categoriaId", target = "categoria")
     @Mapping(source = "posicionId", target = "posicion")
+    @Mapping(source = "categoriaId", target = "categoria")
     Jugador jugadorDTOToJugador(JugadorDTO jugadorDTO);
 
     List<Jugador> jugadorDTOsToJugadors(List<JugadorDTO> jugadorDTOs);
-
-    default Categoria categoriaFromId(Long id) {
-        if (id == null) {
-            return null;
-        }
-        Categoria categoria = new Categoria();
-        categoria.setId(id);
-        return categoria;
-    }
 
     default Posicion posicionFromId(Long id) {
         if (id == null) {
@@ -40,5 +32,14 @@ public interface JugadorMapper {
         Posicion posicion = new Posicion();
         posicion.setId(id);
         return posicion;
+    }
+
+    default Categoria categoriaFromId(Long id) {
+        if (id == null) {
+            return null;
+        }
+        Categoria categoria = new Categoria();
+        categoria.setId(id);
+        return categoria;
     }
 }
