@@ -23,6 +23,7 @@
             vm.horarios.push(horario);
         });
         vm.entrenadors = Entrenador.query();
+        vm.setNombreEntrenamiento = setNombreEntrenamiento;
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
@@ -51,6 +52,18 @@
             vm.isSaving = false;
         }
 
-
+        function setNombreEntrenamiento () {
+            var horario = vm.horarios.find(function(horario){
+               if (horario.id === vm.entrenamiento.horarioId){
+                   return horario;
+               }
+            });
+            var entrenador = vm.entrenadors.find(function(entrenador){
+               if (entrenador.id === vm.entrenamiento.entrenadorId){
+                   return entrenador;
+               }
+            });
+            vm.entrenamiento.nombre = (entrenador ? entrenador.nombre + "-" : "") + (vm.entrenamiento.descripcion ? vm.entrenamiento.descripcion + "-" : "") + (horario ? horario.dia + "-" + horario.horaInicio : "")
+        }
     }
 })();
