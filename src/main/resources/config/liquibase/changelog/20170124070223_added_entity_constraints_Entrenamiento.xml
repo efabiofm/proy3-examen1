@@ -14,11 +14,5 @@
                                  referencedColumnNames="id"
                                  referencedTableName="horario"/>
 
-        <addForeignKeyConstraint baseColumnNames="entrenador_id"
-                                 baseTableName="entrenamiento"
-                                 constraintName="fk_entrenamiento_entrenador_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="entrenador"/>
-
     </changeSet>
 </databaseChangeLog>

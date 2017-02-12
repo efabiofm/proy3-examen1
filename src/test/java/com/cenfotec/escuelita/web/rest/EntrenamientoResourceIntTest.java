@@ -4,7 +4,6 @@ import com.cenfotec.escuelita.EscuelitaApp;
 
 import com.cenfotec.escuelita.domain.Entrenamiento;
 import com.cenfotec.escuelita.domain.Horario;
-import com.cenfotec.escuelita.domain.Entrenador;
 import com.cenfotec.escuelita.repository.EntrenamientoRepository;
 import com.cenfotec.escuelita.service.EntrenamientoService;
 import com.cenfotec.escuelita.service.dto.EntrenamientoDTO;
@@ -95,11 +94,6 @@ public class EntrenamientoResourceIntTest {
         em.persist(horario);
         em.flush();
         entrenamiento.setHorario(horario);
-        // Add required entity
-        Entrenador entrenador = EntrenadorResourceIntTest.createEntity(em);
-        em.persist(entrenador);
-        em.flush();
-        entrenamiento.setEntrenador(entrenador);
         return entrenamiento;
     }
 

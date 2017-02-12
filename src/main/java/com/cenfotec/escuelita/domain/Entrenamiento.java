@@ -31,10 +31,6 @@ public class Entrenamiento implements Serializable {
     @JoinColumn(unique = true)
     private Horario horario;
 
-    @ManyToOne
-    @NotNull
-    private Entrenador entrenador;
-
     public Long getId() {
         return id;
     }
@@ -80,19 +76,6 @@ public class Entrenamiento implements Serializable {
 
     public void setHorario(Horario horario) {
         this.horario = horario;
-    }
-
-    public Entrenador getEntrenador() {
-        return entrenador;
-    }
-
-    public Entrenamiento entrenador(Entrenador entrenador) {
-        this.entrenador = entrenador;
-        return this;
-    }
-
-    public void setEntrenador(Entrenador entrenador) {
-        this.entrenador = entrenador;
     }
 
     @Override
