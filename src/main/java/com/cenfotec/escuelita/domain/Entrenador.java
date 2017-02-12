@@ -1,13 +1,10 @@
 package com.cenfotec.escuelita.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -39,10 +36,6 @@ public class Entrenador implements Serializable {
 
     @Column(name = "correo")
     private String correo;
-
-    @OneToMany(mappedBy = "entrenador")
-    @JsonIgnore
-    private Set<Entrenamiento> entrenamientos = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -115,31 +108,6 @@ public class Entrenador implements Serializable {
 
     public void setCorreo(String correo) {
         this.correo = correo;
-    }
-
-    public Set<Entrenamiento> getEntrenamientos() {
-        return entrenamientos;
-    }
-
-    public Entrenador entrenamientos(Set<Entrenamiento> entrenamientos) {
-        this.entrenamientos = entrenamientos;
-        return this;
-    }
-
-    public Entrenador addEntrenamiento(Entrenamiento entrenamiento) {
-        entrenamientos.add(entrenamiento);
-        entrenamiento.setEntrenador(this);
-        return this;
-    }
-
-    public Entrenador removeEntrenamiento(Entrenamiento entrenamiento) {
-        entrenamientos.remove(entrenamiento);
-        entrenamiento.setEntrenador(null);
-        return this;
-    }
-
-    public void setEntrenamientos(Set<Entrenamiento> entrenamientos) {
-        this.entrenamientos = entrenamientos;
     }
 
     @Override
