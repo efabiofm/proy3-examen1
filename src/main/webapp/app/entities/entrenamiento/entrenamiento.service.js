@@ -20,7 +20,20 @@
                     return data;
                 }
             },
-            'update': { method:'PUT' }
+            'update': { method:'PUT' },
+
+            'getByEntrenador':  { method: 'GET',
+
+                transformResponse:function (data) {
+
+                    return {resultado : data};
+
+
+
+                //return data;
+
+            }, url: 'api/entrenamientos/proximoEntrenamiento/:id'}
         });
     }
+
 })();

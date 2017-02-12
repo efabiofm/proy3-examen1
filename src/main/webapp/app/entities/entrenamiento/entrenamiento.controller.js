@@ -13,6 +13,7 @@
         vm.entrenamientos = [];
 
         loadAll();
+        //obtenerEntrenamientoMasCercano();
 
         function loadAll() {
             Entrenamiento.query(function(result) {

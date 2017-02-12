@@ -12,4 +12,5 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface EntrenamientoRepository extends JpaRepository<Entrenamiento,Long> {
 
+    List<Entrenamiento> findAllByEntrenador_Id(Long id);
 }
