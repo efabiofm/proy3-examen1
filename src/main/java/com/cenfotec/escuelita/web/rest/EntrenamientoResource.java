@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 public class EntrenamientoResource {
 
     private final Logger log = LoggerFactory.getLogger(EntrenamientoResource.class);
-        
+
     @Inject
     private EntrenamientoService entrenamientoService;
 
@@ -84,6 +84,7 @@ public class EntrenamientoResource {
     @Timed
     public List<EntrenamientoDTO> getAllEntrenamientos() {
         log.debug("REST request to get all Entrenamientos");
+
         return entrenamientoService.findAll();
     }
 
@@ -117,6 +118,14 @@ public class EntrenamientoResource {
         log.debug("REST request to delete Entrenamiento : {}", id);
         entrenamientoService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("entrenamiento", id.toString())).build();
+    }
+
+    @GetMapping("/entrenamientos/entrenador/{id}")
+    @Timed
+    public ResponseEntity<List<EntrenamientoDTO>> getAllEntrenamientosByEntrenadorId(@PathVariable Integer id)
+        throws URISyntaxException {
+        List<EntrenamientoDTO> entrenamientos = entrenamientoService.findAllByEntrenadorId(id);
+        return new ResponseEntity<>(entrenamientos, HttpStatus.OK);
     }
 
 }

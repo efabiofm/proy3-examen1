@@ -5,20 +5,11 @@
         .module('escuelitaApp')
         .controller('EntrenamientoController', EntrenamientoController);
 
-    EntrenamientoController.$inject = ['$scope', '$state', 'Entrenamiento'];
+    EntrenamientoController.$inject = ['$scope', '$state', 'entrenamientos'];
 
-    function EntrenamientoController ($scope, $state, Entrenamiento) {
+    function EntrenamientoController ($scope, $state, entrenamientos) {
         var vm = this;
 
-        vm.entrenamientos = [];
-
-        loadAll();
-
-        function loadAll() {
-            Entrenamiento.query(function(result) {
-                vm.entrenamientos = result;
-                vm.searchQuery = null;
-            });
-        }
+        vm.entrenamientos = entrenamientos;
     }
 })();

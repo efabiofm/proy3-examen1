@@ -2,6 +2,7 @@ package com.cenfotec.escuelita.service;
 
 import com.cenfotec.escuelita.domain.Entrenamiento;
 import com.cenfotec.escuelita.repository.EntrenamientoRepository;
+import com.cenfotec.escuelita.security.SecurityUtils;
 import com.cenfotec.escuelita.service.dto.EntrenamientoDTO;
 import com.cenfotec.escuelita.service.mapper.EntrenamientoMapper;
 import org.slf4j.Logger;
@@ -22,7 +23,7 @@ import java.util.stream.Collectors;
 public class EntrenamientoService {
 
     private final Logger log = LoggerFactory.getLogger(EntrenamientoService.class);
-    
+
     @Inject
     private EntrenamientoRepository entrenamientoRepository;
 
@@ -45,10 +46,10 @@ public class EntrenamientoService {
 
     /**
      *  Get all the entrenamientos.
-     *  
+     *
      *  @return the list of entities
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public List<EntrenamientoDTO> findAll() {
         log.debug("Request to get all Entrenamientos");
         List<EntrenamientoDTO> result = entrenamientoRepository.findAll().stream()
@@ -64,7 +65,7 @@ public class EntrenamientoService {
      *  @param id the id of the entity
      *  @return the entity
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public EntrenamientoDTO findOne(Long id) {
         log.debug("Request to get Entrenamiento : {}", id);
         Entrenamiento entrenamiento = entrenamientoRepository.findOne(id);
@@ -80,5 +81,13 @@ public class EntrenamientoService {
     public void delete(Long id) {
         log.debug("Request to delete Entrenamiento : {}", id);
         entrenamientoRepository.delete(id);
+    }
+
+    @Transactional(readOnly = true)
+    public List<EntrenamientoDTO> findAllByEntrenadorId(Integer id) {
+        List<EntrenamientoDTO> result = entrenamientoRepository.findByEntrenadorId(id).stream()
+            .map(entrenamientoMapper::entrenamientoToEntrenamientoDTO)
+            .collect(Collectors.toCollection(LinkedList::new));
+        return result;
     }
 }
