@@ -5,9 +5,9 @@
         .module('escuelitaApp')
         .controller('JugadorDetailController', JugadorDetailController);
 
-    JugadorDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Jugador', 'Posicion', 'Categoria'];
+    JugadorDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Jugador', 'Categoria', 'Posicion'];
 
-    function JugadorDetailController($scope, $rootScope, $stateParams, previousState, entity, Jugador, Posicion, Categoria) {
+    function JugadorDetailController($scope, $rootScope, $stateParams, previousState, entity, Jugador, Categoria, Posicion) {
         var vm = this;
 
         vm.jugador = entity;

@@ -2,7 +2,7 @@
     "escuelitaApp": {
         "jugador" : {
             "home": {
-                "title": "Jugadors",
+                "title": "Jugadores",
                 "createLabel": "Crear nuevo Jugador",
                 "createOrEditLabel": "Crear o editar Jugador",
                 "search": "Search for Jugador"
@@ -21,10 +21,10 @@
             "fechaNacimiento": "Fecha Nacimiento",
             "nombreEncargado": "Nombre Encargado",
             "apellidoEncargado": "Apellido Encargado",
-            "telefonoEncargado": "Telefono Encargado",
+            "telefonoEncargado": "Tel&#233;fono Encargado",
             "correoEncargado": "Correo Encargado",
-            "posicion": "Posicion",
-            "categoria": "Categoria"
+            "categoria": "Categor&#237;a",
+            "posicion": "Posici&#243;n"
         }
     }
 }

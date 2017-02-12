@@ -52,11 +52,11 @@
                 <constraints nullable="true" />
             </column>
             
-            <column name="posicion_id" type="bigint">
+            <column name="categoria_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 
-            <column name="categoria_id" type="bigint">
+            <column name="posicion_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 

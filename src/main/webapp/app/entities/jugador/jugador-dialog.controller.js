@@ -5,9 +5,9 @@
         .module('escuelitaApp')
         .controller('JugadorDialogController', JugadorDialogController);
 
-    JugadorDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Jugador', 'Posicion', 'Categoria'];
+    JugadorDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Jugador', 'Categoria', 'Posicion'];
 
-    function JugadorDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Jugador, Posicion, Categoria) {
+    function JugadorDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Jugador, Categoria, Posicion) {
         var vm = this;
 
         vm.jugador = entity;
@@ -15,8 +15,8 @@
         vm.datePickerOpenStatus = {};
         vm.openCalendar = openCalendar;
         vm.save = save;
-        vm.posicions = Posicion.query();
         vm.categorias = Categoria.query();
+        vm.posicions = Posicion.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();

@@ -8,17 +8,17 @@
     -->
     <changeSet id="20170124070218-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="posicion_id"
-                                 baseTableName="jugador"
-                                 constraintName="fk_jugador_posicion_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="posicion"/>
-
         <addForeignKeyConstraint baseColumnNames="categoria_id"
                                  baseTableName="jugador"
                                  constraintName="fk_jugador_categoria_id"
                                  referencedColumnNames="id"
                                  referencedTableName="categoria"/>
+
+        <addForeignKeyConstraint baseColumnNames="posicion_id"
+                                 baseTableName="jugador"
+                                 constraintName="fk_jugador_posicion_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="posicion"/>
 
     </changeSet>
 </databaseChangeLog>

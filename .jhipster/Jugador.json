@@ -2,14 +2,14 @@
     "fluentMethods": true,
     "relationships": [
         {
-            "relationshipType": "many-to-one",
-            "relationshipName": "posicion",
-            "otherEntityName": "posicion",
-            "otherEntityField": "id"
-        },
-        {
             "relationshipName": "categoria",
             "otherEntityName": "categoria",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombre"
+        },
+        {
+            "relationshipName": "posicion",
+            "otherEntityName": "posicion",
             "relationshipType": "many-to-one",
             "otherEntityField": "nombre"
         }
