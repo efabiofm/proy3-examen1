@@ -24,6 +24,14 @@
         {
             "fieldName": "descripcion",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "entrenadorId",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "entrenadorName",
+            "fieldType": "String"
         }
     ],
     "changelogDate": "20170124070223",

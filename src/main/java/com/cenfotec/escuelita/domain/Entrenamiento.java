@@ -26,6 +26,12 @@ public class Entrenamiento implements Serializable {
     @Column(name = "descripcion")
     private String descripcion;
 
+    @Column(name = "entrenador_id")
+    private Integer entrenadorId;
+
+    @Column(name = "entrenador_name")
+    private String entrenadorName;
+
     @OneToOne
     @NotNull
     @JoinColumn(unique = true)
@@ -63,6 +69,32 @@ public class Entrenamiento implements Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public Integer getEntrenadorId() {
+        return entrenadorId;
+    }
+
+    public Entrenamiento entrenadorId(Integer entrenadorId) {
+        this.entrenadorId = entrenadorId;
+        return this;
+    }
+
+    public void setEntrenadorId(Integer entrenadorId) {
+        this.entrenadorId = entrenadorId;
+    }
+
+    public String getEntrenadorName() {
+        return entrenadorName;
+    }
+
+    public Entrenamiento entrenadorName(String entrenadorName) {
+        this.entrenadorName = entrenadorName;
+        return this;
+    }
+
+    public void setEntrenadorName(String entrenadorName) {
+        this.entrenadorName = entrenadorName;
     }
 
     public Horario getHorario() {
@@ -104,6 +136,8 @@ public class Entrenamiento implements Serializable {
             "id=" + id +
             ", nombre='" + nombre + "'" +
             ", descripcion='" + descripcion + "'" +
+            ", entrenadorId='" + entrenadorId + "'" +
+            ", entrenadorName='" + entrenadorName + "'" +
             '}';
     }
 }
