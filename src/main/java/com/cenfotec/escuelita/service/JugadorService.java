@@ -84,7 +84,7 @@ public class JugadorService {
 
     @Transactional(readOnly = true)
     public List<JugadorDTO> findAllByCategoria(Long id) {
-        List<JugadorDTO> result = jugadorRepository.findByCategoria_Id(id).stream()
+        List<JugadorDTO> result = jugadorRepository.findAllByCategoria_Id(id).stream()
             .map(jugadorMapper::jugadorToJugadorDTO)
             .collect(Collectors.toCollection(LinkedList::new));
         return result;

@@ -10,6 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,7 +26,7 @@ import java.util.stream.Collectors;
 public class HorarioService {
 
     private final Logger log = LoggerFactory.getLogger(HorarioService.class);
-    
+
     @Inject
     private HorarioRepository horarioRepository;
 
@@ -36,7 +40,12 @@ public class HorarioService {
      * @return the persisted entity
      */
     public HorarioDTO save(HorarioDTO horarioDTO) {
+        /*Date date = Calendar.getInstance().getTime();
+
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String today = formatter.format(date);
         log.debug("Request to save Horario : {}", horarioDTO);
+        horarioDTO.setDia(today);*/
         Horario horario = horarioMapper.horarioDTOToHorario(horarioDTO);
         horario = horarioRepository.save(horario);
         HorarioDTO result = horarioMapper.horarioToHorarioDTO(horario);
@@ -45,10 +54,10 @@ public class HorarioService {
 
     /**
      *  Get all the horarios.
-     *  
+     *
      *  @return the list of entities
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public List<HorarioDTO> findAll() {
         log.debug("Request to get all Horarios");
         List<HorarioDTO> result = horarioRepository.findAll().stream()
@@ -64,7 +73,7 @@ public class HorarioService {
      *  @param id the id of the entity
      *  @return the entity
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public HorarioDTO findOne(Long id) {
         log.debug("Request to get Horario : {}", id);
         Horario horario = horarioRepository.findOne(id);
