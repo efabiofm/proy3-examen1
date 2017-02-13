@@ -19,16 +19,15 @@ public class EntrenamientoDTO implements Serializable {
 
     private String descripcion;
 
+    private Integer entrenadorId;
+
+    private String entrenadorName;
+
 
     private Long horarioId;
     
 
     private String horarioNombre;
-
-    private Long entrenadorId;
-    
-
-    private String entrenadorNombre;
 
     public Long getId() {
         return id;
@@ -51,6 +50,20 @@ public class EntrenamientoDTO implements Serializable {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+    public Integer getEntrenadorId() {
+        return entrenadorId;
+    }
+
+    public void setEntrenadorId(Integer entrenadorId) {
+        this.entrenadorId = entrenadorId;
+    }
+    public String getEntrenadorName() {
+        return entrenadorName;
+    }
+
+    public void setEntrenadorName(String entrenadorName) {
+        this.entrenadorName = entrenadorName;
+    }
 
     public Long getHorarioId() {
         return horarioId;
@@ -67,23 +80,6 @@ public class EntrenamientoDTO implements Serializable {
 
     public void setHorarioNombre(String horarioNombre) {
         this.horarioNombre = horarioNombre;
-    }
-
-    public Long getEntrenadorId() {
-        return entrenadorId;
-    }
-
-    public void setEntrenadorId(Long entrenadorId) {
-        this.entrenadorId = entrenadorId;
-    }
-
-
-    public String getEntrenadorNombre() {
-        return entrenadorNombre;
-    }
-
-    public void setEntrenadorNombre(String entrenadorNombre) {
-        this.entrenadorNombre = entrenadorNombre;
     }
 
     @Override
@@ -113,6 +109,8 @@ public class EntrenamientoDTO implements Serializable {
             "id=" + id +
             ", nombre='" + nombre + "'" +
             ", descripcion='" + descripcion + "'" +
+            ", entrenadorId='" + entrenadorId + "'" +
+            ", entrenadorName='" + entrenadorName + "'" +
             '}';
     }
 }

@@ -29,6 +29,13 @@
                     $translatePartialLoader.addPart('calificacion');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
+                }],
+                entrenamientos: ['Principal', 'User', 'Entrenamiento', function(Principal, User, Entrenamiento){
+                    return Principal.identity().then(function (account) {
+                        return User.get({login:account.login}).$promise.then(function (user) {
+                            return Entrenamiento.queryByEntrenador({id: user.id});
+                        });
+                    })
                 }]
             }
         })
@@ -112,7 +119,14 @@
                                 descripcion: null,
                                 id: null
                             };
-                        }
+                        },
+                        user: ['Principal', 'User', function(Principal, User){
+                            return Principal.identity().then(function (account) {
+                                return User.get({login:account.login}).$promise.then(function (user) {
+                                    return user;
+                                });
+                            })
+                        }]
                     }
                 }).result.then(function() {
                     $state.go('entrenamiento', null, { reload: 'entrenamiento' });

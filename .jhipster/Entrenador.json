@@ -1,13 +1,6 @@
 {
     "fluentMethods": true,
-    "relationships": [
-        {
-            "relationshipType": "one-to-many",
-            "relationshipName": "entrenamiento",
-            "otherEntityName": "entrenamiento",
-            "otherEntityRelationshipName": "entrenador"
-        }
-    ],
+    "relationships": [],
     "fields": [
         {
             "fieldName": "nombre",
@@ -37,8 +30,8 @@
         }
     ],
     "changelogDate": "20170124070219",
-    "entityTableName": "entrenador",
     "dto": "mapstruct",
-    "pagination": "no",
-    "service": "serviceClass"
+    "service": "serviceClass",
+    "entityTableName": "entrenador",
+    "pagination": "no"
 }
