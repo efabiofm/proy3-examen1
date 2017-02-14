@@ -11,15 +11,6 @@
             "otherEntityField": "nombre",
             "ownerSide": true,
             "otherEntityRelationshipName": "entrenamiento"
-        },
-        {
-            "relationshipName": "entrenador",
-            "otherEntityName": "entrenador",
-            "relationshipType": "many-to-one",
-            "relationshipValidateRules": [
-                "required"
-            ],
-            "otherEntityField": "nombre"
         }
     ],
     "fields": [
@@ -32,6 +23,14 @@
         },
         {
             "fieldName": "descripcion",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "entrenadorId",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "entrenadorName",
             "fieldType": "String"
         }
     ],

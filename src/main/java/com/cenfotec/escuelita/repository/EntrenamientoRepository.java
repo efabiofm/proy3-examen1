@@ -11,5 +11,5 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 public interface EntrenamientoRepository extends JpaRepository<Entrenamiento,Long> {
-
+    List<Entrenamiento> findByEntrenadorId(Integer idEntrenador);
 }

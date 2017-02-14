@@ -11,10 +11,17 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+<<<<<<< HEAD
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.Calendar;
+=======
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+>>>>>>> cb0cae3b556143fea6f9e4e2033bfff3170b5285
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -76,6 +83,7 @@ public class HorarioService {
                 result.setId(-1L);
             }
         }
+
         return result;
     }
 
