@@ -11,17 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-<<<<<<< HEAD
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.format.TextStyle;
-import java.util.Calendar;
-=======
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
->>>>>>> cb0cae3b556143fea6f9e4e2033bfff3170b5285
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -79,9 +68,8 @@ public class HorarioService {
             result = horarioMapper.horarioToHorarioDTO(horario);
 
         }else{
-            if(!result.getId().equals(-1)) {
                 result.setId(-1L);
-            }
+
         }
 
         return result;
@@ -103,18 +91,25 @@ public class HorarioService {
         String resul = "";
         String horarioNuevo = horario.getDia() + "-" + horario.getHoraInicio() + "-"  + horario.getHoraFin();
 //        System.out.println("horario nuevo: " +horarioNuevo);
-        for (int i = 0; i < findAll().size(); i++) {
-            String horarioViejo;
-            HorarioDTO objH = findAll().get(i);
-            horarioViejo = objH.getDia() + "-" + objH.getHoraInicio() + "-" + objH.getHoraFin();
-//            System.out.println(horarioViejo);
-            if (horarioNuevo.equals(horarioViejo)){
-                resul = "Horario ya existe.";
-                setIdHorario(objH.getId());
-//               System.out.println(horarioViejo);
-                break;
-            }else{
-                resul = "validado";
+        int todosHorarios = findAll().size();
+
+        if(todosHorarios==0) {
+            resul = "validado";
+        }
+        else{
+            for (int i = 0; i < todosHorarios; i++) {
+                String horarioViejo;
+                HorarioDTO objH = findAll().get(i);
+                horarioViejo = objH.getDia() + "-" + objH.getHoraInicio() + "-" + objH.getHoraFin();
+    //            System.out.println(horarioViejo);
+                if (horarioNuevo.equals(horarioViejo)) {
+                    resul = "Horario ya existe.";
+                    setIdHorario(objH.getId());
+    //               System.out.println(horarioViejo);
+                    break;
+                } else {
+                    resul = "validado";
+                }
             }
 
         }
