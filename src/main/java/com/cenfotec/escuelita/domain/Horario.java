@@ -36,6 +36,7 @@ public class Horario implements Serializable {
     private String dia;
 
     @ManyToOne
+    @NotNull
     private Categoria categoria;
 
     public Long getId() {

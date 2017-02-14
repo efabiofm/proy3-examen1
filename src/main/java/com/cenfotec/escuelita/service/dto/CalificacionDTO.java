@@ -22,8 +22,14 @@ public class CalificacionDTO implements Serializable {
 
     private Long jugadorId;
     
+
+    private String jugadorNombre;
+
     private Long entrenamientoId;
     
+
+    private String entrenamientoNombre;
+
     public Long getId() {
         return id;
     }
@@ -54,12 +60,30 @@ public class CalificacionDTO implements Serializable {
         this.jugadorId = jugadorId;
     }
 
+
+    public String getJugadorNombre() {
+        return jugadorNombre;
+    }
+
+    public void setJugadorNombre(String jugadorNombre) {
+        this.jugadorNombre = jugadorNombre;
+    }
+
     public Long getEntrenamientoId() {
         return entrenamientoId;
     }
 
     public void setEntrenamientoId(Long entrenamientoId) {
         this.entrenamientoId = entrenamientoId;
+    }
+
+
+    public String getEntrenamientoNombre() {
+        return entrenamientoNombre;
+    }
+
+    public void setEntrenamientoNombre(String entrenamientoNombre) {
+        this.entrenamientoNombre = entrenamientoNombre;
     }
 
     @Override

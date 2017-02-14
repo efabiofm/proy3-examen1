@@ -5,12 +5,14 @@
         .module('escuelitaApp')
         .controller('EntrenamientoDialogController', EntrenamientoDialogController);
 
-    EntrenamientoDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'Entrenamiento', 'Horario', 'Entrenador'];
+    EntrenamientoDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'Entrenamiento', 'Horario', 'Entrenador', 'user'];
 
-    function EntrenamientoDialogController ($timeout, $scope, $stateParams, $uibModalInstance, $q, entity, Entrenamiento, Horario, Entrenador) {
+    function EntrenamientoDialogController ($timeout, $scope, $stateParams, $uibModalInstance, $q, entity, Entrenamiento, Horario, Entrenador, user) {
         var vm = this;
 
         vm.entrenamiento = entity;
+        vm.entrenamiento.entrenadorId = user.id;
+        vm.entrenamiento.entrenadorName = user.firstName + " " + user.lastName;
         vm.clear = clear;
         vm.save = save;
         vm.horarios = Horario.query({filter: 'entrenamiento-is-null'});
@@ -23,6 +25,7 @@
             vm.horarios.push(horario);
         });
         vm.entrenadors = Entrenador.query();
+        vm.setNombreEntrenamiento = setNombreEntrenamiento;
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
@@ -51,6 +54,14 @@
             vm.isSaving = false;
         }
 
-
+        setNombreEntrenamiento();
+        function setNombreEntrenamiento () {
+            var horario = vm.horarios.find(function(horario){
+               if (horario.id === vm.entrenamiento.horarioId){
+                   return horario;
+               }
+            });
+            vm.entrenamiento.nombre = user.firstName + "-" + (vm.entrenamiento.descripcion ? vm.entrenamiento.descripcion + "-" : "") + (horario ? horario.dia + "-" + horario.horaInicio : "")
+        }
     }
 })();

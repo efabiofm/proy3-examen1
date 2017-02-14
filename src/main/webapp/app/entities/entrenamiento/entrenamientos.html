@@ -22,7 +22,6 @@
                     <th><span data-translate="escuelitaApp.entrenamiento.nombre">Nombre</span></th>
                     <th><span data-translate="escuelitaApp.entrenamiento.descripcion">Descripcion</span></th>
                     <th><span data-translate="escuelitaApp.entrenamiento.horario">Horario</span></th>
-                    <th><span data-translate="escuelitaApp.entrenamiento.entrenador">Entrenador</span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -32,15 +31,12 @@
                     <td>{{entrenamiento.nombre}}</td>
                     <td>{{entrenamiento.descripcion}}</td>
                     <td>
-                        <a ui-sref="horario-detail({id:entrenamiento.horarioId})">{{entrenamiento.horarioId}}</a>
-                    </td>
-                    <td>
-                        <a ui-sref="entrenador-detail({id:entrenamiento.entrenadorId})">{{entrenamiento.entrenadorId}}</a>
+                        <a ui-sref="horario-detail({id:entrenamiento.horarioId})">{{entrenamiento.horarioNombre}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
-                                    ui-sref="entrenamiento-detail({id:entrenamiento.id})"
+                                    ui-sref="entrenamiento-detail({entrenamientoId:entrenamiento.id, horarioId:entrenamiento.horarioId})"
                                     class="btn btn-info btn-sm">
                                 <span class="glyphicon glyphicon-eye-open"></span>
                                 <span class="hidden-xs hidden-sm" data-translate="entity.action.view"></span>

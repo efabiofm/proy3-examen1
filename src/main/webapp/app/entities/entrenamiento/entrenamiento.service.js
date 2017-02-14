@@ -20,7 +20,16 @@
                     return data;
                 }
             },
-            'update': { method:'PUT' }
+            'update': { method:'PUT' },
+            'queryByEntrenador': { method: 'GET', isArray: true, url:'api/entrenamientos/entrenador/:id'},
+            'getByEntrenador':  { method: 'GET',
+
+                transformResponse:function (data) {
+
+                    return {resultado : data};
+
+            }, url: 'api/entrenamientos/proximoEntrenamiento/:id'}
         });
     }
+
 })();

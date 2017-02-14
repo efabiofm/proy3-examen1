@@ -29,6 +29,9 @@ public class HorarioDTO implements Serializable {
 
     private Long categoriaId;
     
+
+    private String categoriaNombre;
+
     public Long getId() {
         return id;
     }
@@ -71,6 +74,15 @@ public class HorarioDTO implements Serializable {
 
     public void setCategoriaId(Long categoriaId) {
         this.categoriaId = categoriaId;
+    }
+
+
+    public String getCategoriaNombre() {
+        return categoriaNombre;
+    }
+
+    public void setCategoriaNombre(String categoriaNombre) {
+        this.categoriaNombre = categoriaNombre;
     }
 
     @Override

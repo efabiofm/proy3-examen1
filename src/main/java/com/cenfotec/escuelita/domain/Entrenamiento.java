@@ -26,12 +26,16 @@ public class Entrenamiento implements Serializable {
     @Column(name = "descripcion")
     private String descripcion;
 
+    @Column(name = "entrenador_id")
+    private Integer entrenadorId;
+
+    @Column(name = "entrenador_name")
+    private String entrenadorName;
+
     @OneToOne
+    @NotNull
     @JoinColumn(unique = true)
     private Horario horario;
-
-    @ManyToOne
-    private Entrenador entrenador;
 
     public Long getId() {
         return id;
@@ -67,6 +71,32 @@ public class Entrenamiento implements Serializable {
         this.descripcion = descripcion;
     }
 
+    public Integer getEntrenadorId() {
+        return entrenadorId;
+    }
+
+    public Entrenamiento entrenadorId(Integer entrenadorId) {
+        this.entrenadorId = entrenadorId;
+        return this;
+    }
+
+    public void setEntrenadorId(Integer entrenadorId) {
+        this.entrenadorId = entrenadorId;
+    }
+
+    public String getEntrenadorName() {
+        return entrenadorName;
+    }
+
+    public Entrenamiento entrenadorName(String entrenadorName) {
+        this.entrenadorName = entrenadorName;
+        return this;
+    }
+
+    public void setEntrenadorName(String entrenadorName) {
+        this.entrenadorName = entrenadorName;
+    }
+
     public Horario getHorario() {
         return horario;
     }
@@ -78,19 +108,6 @@ public class Entrenamiento implements Serializable {
 
     public void setHorario(Horario horario) {
         this.horario = horario;
-    }
-
-    public Entrenador getEntrenador() {
-        return entrenador;
-    }
-
-    public Entrenamiento entrenador(Entrenador entrenador) {
-        this.entrenador = entrenador;
-        return this;
-    }
-
-    public void setEntrenador(Entrenador entrenador) {
-        this.entrenador = entrenador;
     }
 
     @Override
@@ -119,6 +136,8 @@ public class Entrenamiento implements Serializable {
             "id=" + id +
             ", nombre='" + nombre + "'" +
             ", descripcion='" + descripcion + "'" +
+            ", entrenadorId='" + entrenadorId + "'" +
+            ", entrenadorName='" + entrenadorName + "'" +
             '}';
     }
 }

@@ -58,9 +58,6 @@ relationship ManyToOne {
 	Jugador{posicion} to Posicion
 }
 
-relationship ManyToOne {
-	Horario{categoria} to Categoria
-}
 
 relationship OneToOne {
 	Entrenamiento{horario} to Horario

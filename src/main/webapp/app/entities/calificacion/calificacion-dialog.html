@@ -38,15 +38,15 @@
 
         <div class="form-group">
             <label data-translate="escuelitaApp.calificacion.jugador" for="field_jugador">Jugador</label>
-            <select class="form-control" id="field_jugador" name="jugador" ng-model="vm.calificacion.jugadorId" ng-options="jugador.id as jugador.id for jugador in vm.jugadors | orderBy:'id'">
+            <select class="form-control" id="field_jugador" name="jugador" ng-model="vm.calificacion.jugadorId" ng-options="jugador.id as jugador.nombre for jugador in vm.jugadors"             required>
                 <option value=""></option>
             </select>
         </div>
-        <div class="form-group">
-            <label data-translate="escuelitaApp.calificacion.entrenamiento" for="field_entrenamiento">Entrenamiento</label>
-            <select class="form-control" id="field_entrenamiento" name="entrenamiento" ng-model="vm.calificacion.entrenamientoId" ng-options="entrenamiento.id as entrenamiento.id for entrenamiento in vm.entrenamientos | orderBy:'id'">
-                <option value=""></option>
-            </select>
+        <div ng-show="editForm.jugador.$invalid">
+            <p class="help-block"
+                ng-show="editForm.jugador.$error.required" data-translate="entity.validation.required">
+                This field is required.
+            </p>
         </div>
     </div>
     <div class="modal-footer">

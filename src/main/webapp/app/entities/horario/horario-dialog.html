@@ -51,9 +51,9 @@
         </div>
         <div class="form-group">
             <label class="control-label" data-translate="escuelitaApp.horario.dia" for="field_dia">Dia</label>
-            <input type="text" class="form-control" name="dia" id="field_dia"
+            <select type="text" class="form-control" name="dia" id="field_dia"
                     ng-model="vm.horario.dia"
-                    required />
+                    required ng-options="o for o in vm.dias"></select>
             <div ng-show="editForm.dia.$invalid">
                 <p class="help-block"
                     ng-show="editForm.dia.$error.required" data-translate="entity.validation.required">
@@ -64,9 +64,15 @@
 
         <div class="form-group">
             <label data-translate="escuelitaApp.horario.categoria" for="field_categoria">Categoria</label>
-            <select class="form-control" id="field_categoria" name="categoria" ng-model="vm.horario.categoriaId" ng-options="categoria.id as categoria.id for categoria in vm.categorias"            >
+            <select class="form-control" id="field_categoria" name="categoria" ng-model="vm.horario.categoriaId" ng-options="categoria.id as categoria.nombre for categoria in vm.categorias"             required>
                 <option value=""></option>
             </select>
+        </div>
+        <div ng-show="editForm.categoria.$invalid">
+            <p class="help-block"
+                ng-show="editForm.categoria.$error.required" data-translate="entity.validation.required">
+                This field is required.
+            </p>
         </div>
     </div>
     <div class="modal-footer">

@@ -14,11 +14,11 @@
         </dd>
         <dt><span data-translate="escuelitaApp.calificacion.jugador">Jugador</span></dt>
         <dd>
-            <a ui-sref="jugador-detail({id:vm.calificacion.jugadorId})">{{vm.calificacion.jugadorId}}</a>
+            <a ui-sref="jugador-detail({id:vm.calificacion.jugadorId})">{{vm.calificacion.jugadorNombre}}</a>
         </dd>
         <dt><span data-translate="escuelitaApp.calificacion.entrenamiento">Entrenamiento</span></dt>
         <dd>
-            <a ui-sref="entrenamiento-detail({id:vm.calificacion.entrenamientoId})">{{vm.calificacion.entrenamientoId}}</a>
+            <a ui-sref="entrenamiento-detail({id:vm.calificacion.entrenamientoId})">{{vm.calificacion.entrenamientoNombre}}</a>
         </dd>
     </dl>
 
@@ -28,7 +28,7 @@
         <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
     </button>
 
-    <button type="button" ui-sref="calificacion-detail.edit({id:vm.calificacion.id})" class="btn btn-primary">
+    <button type="button" ui-sref="entrenamiento-detail.calificacion-detail.edit({id:vm.calificacion.id})" class="btn btn-primary">
         <span class="glyphicon glyphicon-pencil"></span>
         <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
     </button>

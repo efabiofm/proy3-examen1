@@ -5,9 +5,9 @@
         .module('escuelitaApp')
         .controller('EntrenadorDialogController', EntrenadorDialogController);
 
-    EntrenadorDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Entrenador', 'Entrenamiento'];
+    EntrenadorDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Entrenador'];
 
-    function EntrenadorDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Entrenador, Entrenamiento) {
+    function EntrenadorDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Entrenador) {
         var vm = this;
 
         vm.entrenador = entity;
@@ -15,7 +15,6 @@
         vm.datePickerOpenStatus = {};
         vm.openCalendar = openCalendar;
         vm.save = save;
-        vm.entrenamientos = Entrenamiento.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
