@@ -9,7 +9,7 @@
 
     function HorarioDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Horario, Categoria) {
         var vm = this;
-
+        vm.dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"];
         vm.horario = entity;
         vm.clear = clear;
         vm.save = save;
