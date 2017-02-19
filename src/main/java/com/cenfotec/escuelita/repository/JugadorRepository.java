@@ -11,5 +11,6 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 public interface JugadorRepository extends JpaRepository<Jugador,Long> {
+
     List<Jugador> findAllByCategoria_Id(Long id);
 }

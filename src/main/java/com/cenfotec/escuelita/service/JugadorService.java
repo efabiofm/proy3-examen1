@@ -89,4 +89,5 @@ public class JugadorService {
             .collect(Collectors.toCollection(LinkedList::new));
         return result;
     }
+
 }

@@ -13,7 +13,9 @@ import java.util.List;
 public interface JugadorMapper {
 
     @Mapping(source = "categoria.id", target = "categoriaId")
+    @Mapping(source = "categoria.nombre", target = "categoriaNombre")
     @Mapping(source = "posicion.id", target = "posicionId")
+    @Mapping(source = "posicion.nombre", target = "posicionNombre")
     JugadorDTO jugadorToJugadorDTO(Jugador jugador);
 
     List<JugadorDTO> jugadorsToJugadorDTOs(List<Jugador> jugadors);
