@@ -81,4 +81,15 @@ public class JugadorService {
         log.debug("Request to delete Jugador : {}", id);
         jugadorRepository.delete(id);
     }
+<<<<<<< HEAD
+=======
+
+    @Transactional(readOnly = true)
+    public List<JugadorDTO> findAllByCategoria(Long id) {
+        List<JugadorDTO> result = jugadorRepository.findAllByCategoria_Id(id).stream()
+            .map(jugadorMapper::jugadorToJugadorDTO)
+            .collect(Collectors.toCollection(LinkedList::new));
+        return result;
+    }
+>>>>>>> cb0cae3b556143fea6f9e4e2033bfff3170b5285
 }

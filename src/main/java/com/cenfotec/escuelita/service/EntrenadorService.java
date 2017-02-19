@@ -1,9 +1,12 @@
 package com.cenfotec.escuelita.service;
 
 import com.cenfotec.escuelita.domain.Entrenador;
+import com.cenfotec.escuelita.domain.Entrenamiento;
 import com.cenfotec.escuelita.repository.EntrenadorRepository;
+import com.cenfotec.escuelita.repository.EntrenamientoRepository;
 import com.cenfotec.escuelita.service.dto.EntrenadorDTO;
 import com.cenfotec.escuelita.service.mapper.EntrenadorMapper;
+import com.cenfotec.escuelita.service.mapper.EntrenamientoMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +30,14 @@ public class EntrenadorService {
     private EntrenadorRepository entrenadorRepository;
 
     @Inject
+    private EntrenamientoRepository entrenamientoRepository;
+
+    @Inject
     private EntrenadorMapper entrenadorMapper;
+
+    @Inject
+    private EntrenamientoMapper entrenamientoMapper;
+
 
     /**
      * Save a entrenador.

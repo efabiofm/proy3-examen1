@@ -4,7 +4,6 @@ import com.cenfotec.escuelita.EscuelitaApp;
 
 import com.cenfotec.escuelita.domain.Entrenamiento;
 import com.cenfotec.escuelita.domain.Horario;
-import com.cenfotec.escuelita.domain.Entrenador;
 import com.cenfotec.escuelita.repository.EntrenamientoRepository;
 import com.cenfotec.escuelita.service.EntrenamientoService;
 import com.cenfotec.escuelita.service.dto.EntrenamientoDTO;
@@ -48,6 +47,12 @@ public class EntrenamientoResourceIntTest {
     private static final String DEFAULT_DESCRIPCION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPCION = "BBBBBBBBBB";
 
+    private static final Integer DEFAULT_ENTRENADOR_ID = 1;
+    private static final Integer UPDATED_ENTRENADOR_ID = 2;
+
+    private static final String DEFAULT_ENTRENADOR_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_ENTRENADOR_NAME = "BBBBBBBBBB";
+
     @Inject
     private EntrenamientoRepository entrenamientoRepository;
 
@@ -89,17 +94,14 @@ public class EntrenamientoResourceIntTest {
     public static Entrenamiento createEntity(EntityManager em) {
         Entrenamiento entrenamiento = new Entrenamiento()
                 .nombre(DEFAULT_NOMBRE)
-                .descripcion(DEFAULT_DESCRIPCION);
+                .descripcion(DEFAULT_DESCRIPCION)
+                .entrenadorId(DEFAULT_ENTRENADOR_ID)
+                .entrenadorName(DEFAULT_ENTRENADOR_NAME);
         // Add required entity
         Horario horario = HorarioResourceIntTest.createEntity(em);
         em.persist(horario);
         em.flush();
         entrenamiento.setHorario(horario);
-        // Add required entity
-        Entrenador entrenador = EntrenadorResourceIntTest.createEntity(em);
-        em.persist(entrenador);
-        em.flush();
-        entrenamiento.setEntrenador(entrenador);
         return entrenamiento;
     }
 
@@ -127,6 +129,8 @@ public class EntrenamientoResourceIntTest {
         Entrenamiento testEntrenamiento = entrenamientoList.get(entrenamientoList.size() - 1);
         assertThat(testEntrenamiento.getNombre()).isEqualTo(DEFAULT_NOMBRE);
         assertThat(testEntrenamiento.getDescripcion()).isEqualTo(DEFAULT_DESCRIPCION);
+        assertThat(testEntrenamiento.getEntrenadorId()).isEqualTo(DEFAULT_ENTRENADOR_ID);
+        assertThat(testEntrenamiento.getEntrenadorName()).isEqualTo(DEFAULT_ENTRENADOR_NAME);
     }
 
     @Test
@@ -181,7 +185,9 @@ public class EntrenamientoResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(entrenamiento.getId().intValue())))
             .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE.toString())))
-            .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION.toString())));
+            .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION.toString())))
+            .andExpect(jsonPath("$.[*].entrenadorId").value(hasItem(DEFAULT_ENTRENADOR_ID)))
+            .andExpect(jsonPath("$.[*].entrenadorName").value(hasItem(DEFAULT_ENTRENADOR_NAME.toString())));
     }
 
     @Test
@@ -196,7 +202,9 @@ public class EntrenamientoResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(entrenamiento.getId().intValue()))
             .andExpect(jsonPath("$.nombre").value(DEFAULT_NOMBRE.toString()))
-            .andExpect(jsonPath("$.descripcion").value(DEFAULT_DESCRIPCION.toString()));
+            .andExpect(jsonPath("$.descripcion").value(DEFAULT_DESCRIPCION.toString()))
+            .andExpect(jsonPath("$.entrenadorId").value(DEFAULT_ENTRENADOR_ID))
+            .andExpect(jsonPath("$.entrenadorName").value(DEFAULT_ENTRENADOR_NAME.toString()));
     }
 
     @Test
@@ -218,7 +226,9 @@ public class EntrenamientoResourceIntTest {
         Entrenamiento updatedEntrenamiento = entrenamientoRepository.findOne(entrenamiento.getId());
         updatedEntrenamiento
                 .nombre(UPDATED_NOMBRE)
-                .descripcion(UPDATED_DESCRIPCION);
+                .descripcion(UPDATED_DESCRIPCION)
+                .entrenadorId(UPDATED_ENTRENADOR_ID)
+                .entrenadorName(UPDATED_ENTRENADOR_NAME);
         EntrenamientoDTO entrenamientoDTO = entrenamientoMapper.entrenamientoToEntrenamientoDTO(updatedEntrenamiento);
 
         restEntrenamientoMockMvc.perform(put("/api/entrenamientos")
@@ -232,6 +242,8 @@ public class EntrenamientoResourceIntTest {
         Entrenamiento testEntrenamiento = entrenamientoList.get(entrenamientoList.size() - 1);
         assertThat(testEntrenamiento.getNombre()).isEqualTo(UPDATED_NOMBRE);
         assertThat(testEntrenamiento.getDescripcion()).isEqualTo(UPDATED_DESCRIPCION);
+        assertThat(testEntrenamiento.getEntrenadorId()).isEqualTo(UPDATED_ENTRENADOR_ID);
+        assertThat(testEntrenamiento.getEntrenadorName()).isEqualTo(UPDATED_ENTRENADOR_NAME);
     }
 
     @Test

@@ -16,7 +16,6 @@ public interface EntrenadorMapper {
 
     List<EntrenadorDTO> entrenadorsToEntrenadorDTOs(List<Entrenador> entrenadors);
 
-    @Mapping(target = "entrenamientos", ignore = true)
     Entrenador entrenadorDTOToEntrenador(EntrenadorDTO entrenadorDTO);
 
     List<Entrenador> entrenadorDTOsToEntrenadors(List<EntrenadorDTO> entrenadorDTOs);

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
@@ -29,7 +30,7 @@ import java.util.stream.Collectors;
 public class EntrenamientoResource {
 
     private final Logger log = LoggerFactory.getLogger(EntrenamientoResource.class);
-        
+
     @Inject
     private EntrenamientoService entrenamientoService;
 
@@ -84,6 +85,7 @@ public class EntrenamientoResource {
     @Timed
     public List<EntrenamientoDTO> getAllEntrenamientos() {
         log.debug("REST request to get all Entrenamientos");
+
         return entrenamientoService.findAll();
     }
 
@@ -105,6 +107,18 @@ public class EntrenamientoResource {
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    /*@GetMapping("/entrenamientosCercanos/{id}")
+    @Timed
+    public ResponseEntity<EntrenamientoDTO> getEntrenamientoMasCercano(@PathVariable Long id){
+        EntrenamientoDTO entrenamientoDTO = entrenamientoService.obtenerProxEntrenamiento(id);
+        return Optional.ofNullable(entrenamientoDTO)
+            .map(result -> new ResponseEntity<>(
+                result,
+                HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }*/
+
+
     /**
      * DELETE  /entrenamientos/:id : delete the "id" entrenamiento.
      *
@@ -117,6 +131,28 @@ public class EntrenamientoResource {
         log.debug("REST request to delete Entrenamiento : {}", id);
         entrenamientoService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("entrenamiento", id.toString())).build();
+    }
+
+
+    @GetMapping("/entrenamientos/entrenador/{id}")
+    @Timed
+    public ResponseEntity<List<EntrenamientoDTO>> getAllEntrenamientosByEntrenadorId(@PathVariable Integer id)
+        throws URISyntaxException {
+        List<EntrenamientoDTO> entrenamientos = entrenamientoService.findAllByEntrenadorId(id);
+        return new ResponseEntity<>(entrenamientos, HttpStatus.OK);
+    }
+
+    @GetMapping("/entrenamientos/proximoEntrenamiento/{id}")
+    @Timed
+    public String getProxEntreamiento(@PathVariable Integer id) {
+        log.debug("VAmos amigui: " + entrenamientoService.obtenerProxEntrenamiento(id));
+        return entrenamientoService.obtenerProxEntrenamiento(id);
+        //return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("entrenamiento", entrenamientoService.obtenerProxEntrenamiento(id).toString())).build();
+        /*return Optional.ofNullable(String)
+            .map(response -> new ResponseEntity<>(
+                result,
+                HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));*/
     }
 
 }
