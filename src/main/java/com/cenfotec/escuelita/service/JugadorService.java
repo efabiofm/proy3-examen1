@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class JugadorService {
 
     private final Logger log = LoggerFactory.getLogger(JugadorService.class);
-    
+
     @Inject
     private JugadorRepository jugadorRepository;
 
@@ -45,10 +45,10 @@ public class JugadorService {
 
     /**
      *  Get all the jugadors.
-     *  
+     *
      *  @return the list of entities
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public List<JugadorDTO> findAll() {
         log.debug("Request to get all Jugadors");
         List<JugadorDTO> result = jugadorRepository.findAll().stream()
@@ -64,7 +64,7 @@ public class JugadorService {
      *  @param id the id of the entity
      *  @return the entity
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public JugadorDTO findOne(Long id) {
         log.debug("Request to get Jugador : {}", id);
         Jugador jugador = jugadorRepository.findOne(id);
@@ -81,8 +81,6 @@ public class JugadorService {
         log.debug("Request to delete Jugador : {}", id);
         jugadorRepository.delete(id);
     }
-<<<<<<< HEAD
-=======
 
     @Transactional(readOnly = true)
     public List<JugadorDTO> findAllByCategoria(Long id) {
@@ -91,5 +89,5 @@ public class JugadorService {
             .collect(Collectors.toCollection(LinkedList::new));
         return result;
     }
->>>>>>> cb0cae3b556143fea6f9e4e2033bfff3170b5285
+
 }
