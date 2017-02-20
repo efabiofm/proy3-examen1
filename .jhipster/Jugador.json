@@ -2,16 +2,16 @@
     "fluentMethods": true,
     "relationships": [
         {
-            "relationshipType": "many-to-one",
             "relationshipName": "categoria",
             "otherEntityName": "categoria",
-            "otherEntityField": "id"
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombre"
         },
         {
-            "relationshipType": "many-to-one",
             "relationshipName": "posicion",
             "otherEntityName": "posicion",
-            "otherEntityField": "id"
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombre"
         }
     ],
     "fields": [
@@ -51,8 +51,8 @@
         }
     ],
     "changelogDate": "20170124070218",
-    "entityTableName": "jugador",
     "dto": "mapstruct",
-    "pagination": "no",
-    "service": "serviceClass"
+    "service": "serviceClass",
+    "entityTableName": "jugador",
+    "pagination": "no"
 }

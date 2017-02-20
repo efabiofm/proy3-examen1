@@ -31,13 +31,17 @@
             <column name="descripcion" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-                        <column name="horario_id" type="bigint">
-                <constraints unique="true" nullable="true" />
-            </column>
-            <column name="entrenador_id" type="bigint">
+            
+            <column name="entrenador_id" type="integer">
                 <constraints nullable="true" />
             </column>
-
+            
+            <column name="entrenador_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+                        <column name="horario_id" type="bigint">
+                <constraints unique="true" nullable="false" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         

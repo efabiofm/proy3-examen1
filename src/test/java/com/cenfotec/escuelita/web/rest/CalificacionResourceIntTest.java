@@ -3,6 +3,8 @@ package com.cenfotec.escuelita.web.rest;
 import com.cenfotec.escuelita.EscuelitaApp;
 
 import com.cenfotec.escuelita.domain.Calificacion;
+import com.cenfotec.escuelita.domain.Jugador;
+import com.cenfotec.escuelita.domain.Entrenamiento;
 import com.cenfotec.escuelita.repository.CalificacionRepository;
 import com.cenfotec.escuelita.service.CalificacionService;
 import com.cenfotec.escuelita.service.dto.CalificacionDTO;
@@ -88,6 +90,16 @@ public class CalificacionResourceIntTest {
         Calificacion calificacion = new Calificacion()
                 .descripcion(DEFAULT_DESCRIPCION)
                 .nota(DEFAULT_NOTA);
+        // Add required entity
+        Jugador jugador = JugadorResourceIntTest.createEntity(em);
+        em.persist(jugador);
+        em.flush();
+        calificacion.setJugador(jugador);
+        // Add required entity
+        Entrenamiento entrenamiento = EntrenamientoResourceIntTest.createEntity(em);
+        em.persist(entrenamiento);
+        em.flush();
+        calificacion.setEntrenamiento(entrenamiento);
         return calificacion;
     }
 

@@ -18,7 +18,7 @@
             Horario.query(function(result) {
                 vm.horarios = result;
                 vm.searchQuery = null;
-            });
+            })
         }
     }
 })();

@@ -13,7 +13,9 @@ import java.util.List;
 public interface CalificacionMapper {
 
     @Mapping(source = "jugador.id", target = "jugadorId")
+    @Mapping(source = "jugador.nombre", target = "jugadorNombre")
     @Mapping(source = "entrenamiento.id", target = "entrenamientoId")
+    @Mapping(source = "entrenamiento.nombre", target = "entrenamientoNombre")
     CalificacionDTO calificacionToCalificacionDTO(Calificacion calificacion);
 
     List<CalificacionDTO> calificacionsToCalificacionDTOs(List<Calificacion> calificacions);

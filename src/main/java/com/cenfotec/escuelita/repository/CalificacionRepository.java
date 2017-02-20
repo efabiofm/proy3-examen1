@@ -11,5 +11,5 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 public interface CalificacionRepository extends JpaRepository<Calificacion,Long> {
-
+    List<Calificacion> findByEntrenamiento_Id(Long idEntrenamiento);
 }

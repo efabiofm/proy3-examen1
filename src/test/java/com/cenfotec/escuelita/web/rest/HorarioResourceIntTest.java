@@ -3,6 +3,7 @@ package com.cenfotec.escuelita.web.rest;
 import com.cenfotec.escuelita.EscuelitaApp;
 
 import com.cenfotec.escuelita.domain.Horario;
+import com.cenfotec.escuelita.domain.Categoria;
 import com.cenfotec.escuelita.repository.HorarioRepository;
 import com.cenfotec.escuelita.service.HorarioService;
 import com.cenfotec.escuelita.service.dto.HorarioDTO;
@@ -96,6 +97,11 @@ public class HorarioResourceIntTest {
                 .horaInicio(DEFAULT_HORA_INICIO)
                 .horaFin(DEFAULT_HORA_FIN)
                 .dia(DEFAULT_DIA);
+        // Add required entity
+        Categoria categoria = CategoriaResourceIntTest.createEntity(em);
+        em.persist(categoria);
+        em.flush();
+        horario.setCategoria(categoria);
         return horario;
     }
 

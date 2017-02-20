@@ -26,14 +26,22 @@
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                     $translatePartialLoader.addPart('entrenamiento');
+                    $translatePartialLoader.addPart('calificacion');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
+                }],
+                entrenamientos: ['Principal', 'User', 'Entrenamiento', function(Principal, User, Entrenamiento){
+                    return Principal.identity().then(function (account) {
+                        return User.get({login:account.login}).$promise.then(function (user) {
+                            return Entrenamiento.queryByEntrenador({id: user.id});
+                        });
+                    })
                 }]
             }
         })
         .state('entrenamiento-detail', {
             parent: 'entity',
-            url: '/entrenamiento/{id}',
+            url: '/entrenamiento/{entrenamientoId}/horario/{horarioId}',
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'escuelitaApp.entrenamiento.detail.title'
@@ -51,7 +59,7 @@
                     return $translate.refresh();
                 }],
                 entity: ['$stateParams', 'Entrenamiento', function($stateParams, Entrenamiento) {
-                    return Entrenamiento.get({id : $stateParams.id}).$promise;
+                    return Entrenamiento.get({id : $stateParams.entrenamientoId}).$promise;
                 }],
                 previousState: ["$state", function ($state) {
                     var currentStateData = {
@@ -60,6 +68,9 @@
                         url: $state.href($state.current.name, $state.params)
                     };
                     return currentStateData;
+                }],
+                calificaciones: ["$stateParams", "Calificacion", function($stateParams, Calificacion) {
+                    return Calificacion.getByEntrenamiento({id: $stateParams.entrenamientoId}).$promise;
                 }]
             }
         })
@@ -78,7 +89,7 @@
                     size: 'lg',
                     resolve: {
                         entity: ['Entrenamiento', function(Entrenamiento) {
-                            return Entrenamiento.get({id : $stateParams.id}).$promise;
+                            return Entrenamiento.get({id : $stateParams.entrenamientoId}).$promise;
                         }]
                     }
                 }).result.then(function() {
@@ -108,7 +119,14 @@
                                 descripcion: null,
                                 id: null
                             };
-                        }
+                        },
+                        user: ['Principal', 'User', function(Principal, User){
+                            return Principal.identity().then(function (account) {
+                                return User.get({login:account.login}).$promise.then(function (user) {
+                                    return user;
+                                });
+                            })
+                        }]
                     }
                 }).result.then(function() {
                     $state.go('entrenamiento', null, { reload: 'entrenamiento' });

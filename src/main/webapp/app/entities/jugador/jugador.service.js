@@ -36,7 +36,8 @@
                     copy.fechaNacimiento = DateUtils.convertLocalDateToServer(copy.fechaNacimiento);
                     return angular.toJson(copy);
                 }
-            }
+            },
+            'getByCategoria': { method: 'GET', isArray: true, url: 'api/jugadors/categoria/:id'}
         });
     }
 })();

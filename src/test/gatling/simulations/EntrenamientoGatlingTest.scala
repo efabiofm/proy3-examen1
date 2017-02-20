@@ -68,7 +68,7 @@ class EntrenamientoGatlingTest extends Simulation {
             .exec(http("Create new entrenamiento")
             .post("/api/entrenamientos")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "nombre":"SAMPLE_TEXT", "descripcion":"SAMPLE_TEXT"}""")).asJSON
+            .body(StringBody("""{"id":null, "nombre":"SAMPLE_TEXT", "descripcion":"SAMPLE_TEXT", "entrenadorId":"0", "entrenadorName":"SAMPLE_TEXT"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_entrenamiento_url"))).exitHereIfFailed
             .pause(10)

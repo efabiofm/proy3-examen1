@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
+import javax.xml.ws.Response;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.LinkedList;
@@ -42,15 +44,21 @@ public class HorarioResource {
      */
     @PostMapping("/horarios")
     @Timed
-    public ResponseEntity<HorarioDTO> createHorario(@Valid @RequestBody HorarioDTO horarioDTO) throws URISyntaxException {
+    public ResponseEntity<?> createHorario(@Valid @RequestBody HorarioDTO horarioDTO) throws URISyntaxException {
         log.debug("REST request to save Horario : {}", horarioDTO);
         if (horarioDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("horario", "idexists", "A new horario cannot already have an ID")).body(null);
         }
-        HorarioDTO result = horarioService.save(horarioDTO);
-        return ResponseEntity.created(new URI("/api/horarios/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert("horario", result.getId().toString()))
-            .body(result);
+
+            HorarioDTO result = horarioService.save(horarioDTO);
+
+            if(result.getId().equals(-1L)){
+                  return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("horario", "No se puede agregar el mismo horario" , "")).body(null);
+            }else{
+                return ResponseEntity.created(new URI("/api/horarios/" + result.getId()))
+                    .headers(HeaderUtil.createEntityCreationAlert("horario", result.getId().toString())).body(result);
+            }
+
     }
 
     /**
@@ -64,7 +72,7 @@ public class HorarioResource {
      */
     @PutMapping("/horarios")
     @Timed
-    public ResponseEntity<HorarioDTO> updateHorario(@Valid @RequestBody HorarioDTO horarioDTO) throws URISyntaxException {
+    public ResponseEntity<?> updateHorario(@Valid @RequestBody HorarioDTO horarioDTO) throws URISyntaxException {
         log.debug("REST request to update Horario : {}", horarioDTO);
         if (horarioDTO.getId() == null) {
             return createHorario(horarioDTO);
